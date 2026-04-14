@@ -17,15 +17,28 @@
 
 <main id="maincontent">
 
-  <section id="loginSection" class="slide active">
-    <h3>Start or Resume Your Application</h3>
-    <p>Enter your email to start a new application or resume an existing one.</p>
+<section id="loginSection" class="slide active">
+  <h3>Start Your Application</h3>
+  <p>Enter your email address to receive a one-time verification code.</p>
 
+  <label>
+    Email Address<br>
     <input type="email" id="userEmail" required>
-    <button type="button" onclick="login()">Continue</button>
+  </label><br><br>
 
-    <div id="loginFeedback" class="feedback-box" aria-live="polite"></div>
-  </section>
+  <button type="button" onclick="requestCode()">Send Code</button>
+
+  <div id="codeSection" style="display:none; margin-top:20px;">
+    <label>
+      Enter Verification Code<br>
+      <input type="text" id="verificationCode" maxlength="6">
+    </label><br><br>
+
+    <button type="button" onclick="verifyCode()">Verify Code</button>
+  </div>
+
+  <div id="loginFeedback" class="feedback-box" aria-live="polite"></div>
+</section>
 
   <section class="slide" id="applicationFormSection">
     <h3>Volunteer Application Form</h3>
@@ -377,148 +390,156 @@
   const summarySection = document.getElementById('printSummarySection');
   const summaryContent = document.getElementById('printSummaryContent');
 
+  let verifiedEmail = '';
+
+  async function requestCode() {
+    const email = document.getElementById('userEmail').value.trim();
+    const loginFeedback = document.getElementById('loginFeedback');
+
+    if (!email) {
+      loginFeedback.textContent = 'Please enter your email address.';
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'sendCode',
+          email: email
+        }),
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        document.getElementById('codeSection').style.display = 'block';
+        loginFeedback.textContent = 'Verification code sent. Please check your email.';
+      } else {
+        loginFeedback.textContent = result.message || 'Unable to send code.';
+      }
+    } catch (error) {
+      loginFeedback.textContent = 'Error sending code. Please try again.';
+    }
+  }
+
+  async function verifyCode() {
+    const email = document.getElementById('userEmail').value.trim();
+    const code = document.getElementById('verificationCode').value.trim();
+    const loginFeedback = document.getElementById('loginFeedback');
+
+    if (!email || !code) {
+      loginFeedback.textContent = 'Please enter your email and verification code.';
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'verifyCode',
+          email: email,
+          code: code
+        }),
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        verifiedEmail = email;
+        loginFeedback.textContent = 'Email verified. You may continue.';
+        showForm();
+        if (form.elements['email']) {
+          form.elements['email'].value = email;
+        }
+      } else {
+        loginFeedback.textContent = result.message || 'Invalid code.';
+      }
+    } catch (error) {
+      loginFeedback.textContent = 'Error verifying code. Please try again.';
+    }
+  }
+
   function getCheckedValues(name) {
     return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value);
   }
 
-  function setCheckedValues(name, values) {
-    const selectedValues = Array.isArray(values)
-      ? values
-      : String(values || '').split(',').map(v => v.trim()).filter(Boolean);
-
-    document.querySelectorAll(`input[name="${name}"]`).forEach(cb => {
-      cb.checked = selectedValues.includes(cb.value);
-    });
-  }
-
   function currentTimestamp() {
-    const now = new Date();
-    return now.toISOString();
+    return new Date().toISOString();
   }
 
   function collectFormData() {
     const formData = new FormData(form);
 
     return {
+      action: 'saveForm',
       churchAttended: formData.get('churchAttended'),
       firstName: formData.get('firstName'),
       lastName: formData.get('lastName'),
       address: formData.get('address'),
       phone: formData.get('phone'),
-      email: formData.get('email'),
+      email: verifiedEmail || formData.get('email'),
       dateOfBirth: formData.get('dateOfBirth'),
       gender: formData.get('gender'),
       volunteerAreas: getCheckedValues('volunteerAreas'),
-
       emergencyName: formData.get('emergencyName'),
       emergencyRelationship: formData.get('emergencyRelationship'),
       emergencyPhone: formData.get('emergencyPhone'),
       emergencyWilling: formData.get('emergencyWilling'),
-
       servedAnotherChurch: formData.get('servedAnotherChurch'),
       lastChurchServed: formData.get('lastChurchServed'),
       committedToJesus: formData.get('committedToJesus'),
       yearSaved: formData.get('yearSaved'),
       workHobbiesSkills: formData.get('workHobbiesSkills'),
-
       claimPhysicalAbuse: formData.get('claimPhysicalAbuse'),
       claimSexualAbuse: formData.get('claimSexualAbuse'),
       claimSexualHarassment: formData.get('claimSexualHarassment'),
       claimDomesticViolence: formData.get('claimDomesticViolence'),
       employmentTerminated: formData.get('employmentTerminated'),
       medicalInformation: formData.get('medicalInformation'),
-
       blueCard: formData.get('blueCard'),
       blueCardNumber: formData.get('blueCardNumber'),
       blueCardExpiry: formData.get('blueCardExpiry'),
-
       childSafeTraining: formData.get('childSafeTraining'),
       childSafeCourseName: formData.get('childSafeCourseName'),
       childSafeDateAchieved: formData.get('childSafeDateAchieved'),
-
       foodSafetyTraining: formData.get('foodSafetyTraining'),
       foodSafetyCourseName: formData.get('foodSafetyCourseName'),
       foodSafetyDateAchieved: formData.get('foodSafetyDateAchieved'),
-
       firstAidTraining: formData.get('firstAidTraining'),
       firstAidCourseName: formData.get('firstAidCourseName'),
       firstAidDateAchieved: formData.get('firstAidDateAchieved'),
-
       fireTraining: formData.get('fireTraining'),
       fireCourseName: formData.get('fireCourseName'),
       fireDateAchieved: formData.get('fireDateAchieved'),
-
       otherTraining: formData.get('otherTraining'),
       otherCourseName: formData.get('otherCourseName'),
       otherDateAchieved: formData.get('otherDateAchieved'),
-
       agreementAccepted: formData.get('agreementAccepted') === 'on',
       signatureName: formData.get('signatureName'),
       signatureTimestamp: currentTimestamp()
     };
   }
 
-  function populateForm(data) {
-    form.elements['churchAttended'].value = data.churchAttended || '';
-    form.elements['firstName'].value = data.firstName || '';
-    form.elements['lastName'].value = data.lastName || '';
-    form.elements['address'].value = data.address || '';
-    form.elements['phone'].value = data.phone || '';
-    form.elements['email'].value = data.email || '';
-    form.elements['dateOfBirth'].value = data.dateOfBirth || '';
-    form.elements['gender'].value = data.gender || '';
-    setCheckedValues('volunteerAreas', data.volunteerAreas || []);
-
-    form.elements['emergencyName'].value = data.emergencyName || '';
-    form.elements['emergencyRelationship'].value = data.emergencyRelationship || '';
-    form.elements['emergencyPhone'].value = data.emergencyPhone || '';
-    form.elements['emergencyWilling'].value = data.emergencyWilling || '';
-
-    form.elements['servedAnotherChurch'].value = data.servedAnotherChurch || '';
-    form.elements['lastChurchServed'].value = data.lastChurchServed || '';
-    form.elements['committedToJesus'].value = data.committedToJesus || '';
-    form.elements['yearSaved'].value = data.yearSaved || '';
-    form.elements['workHobbiesSkills'].value = data.workHobbiesSkills || '';
-
-    form.elements['claimPhysicalAbuse'].value = data.claimPhysicalAbuse || '';
-    form.elements['claimSexualAbuse'].value = data.claimSexualAbuse || '';
-    form.elements['claimSexualHarassment'].value = data.claimSexualHarassment || '';
-    form.elements['claimDomesticViolence'].value = data.claimDomesticViolence || '';
-    form.elements['employmentTerminated'].value = data.employmentTerminated || '';
-    form.elements['medicalInformation'].value = data.medicalInformation || '';
-
-    form.elements['blueCard'].value = data.blueCard || '';
-    form.elements['blueCardNumber'].value = data.blueCardNumber || '';
-    form.elements['blueCardExpiry'].value = data.blueCardExpiry || '';
-
-    form.elements['childSafeTraining'].value = data.childSafeTraining || '';
-    form.elements['childSafeCourseName'].value = data.childSafeCourseName || '';
-    form.elements['childSafeDateAchieved'].value = data.childSafeDateAchieved || '';
-
-    form.elements['foodSafetyTraining'].value = data.foodSafetyTraining || '';
-    form.elements['foodSafetyCourseName'].value = data.foodSafetyCourseName || '';
-    form.elements['foodSafetyDateAchieved'].value = data.foodSafetyDateAchieved || '';
-
-    form.elements['firstAidTraining'].value = data.firstAidTraining || '';
-    form.elements['firstAidCourseName'].value = data.firstAidCourseName || '';
-    form.elements['firstAidDateAchieved'].value = data.firstAidDateAchieved || '';
-
-    form.elements['fireTraining'].value = data.fireTraining || '';
-    form.elements['fireCourseName'].value = data.fireCourseName || '';
-    form.elements['fireDateAchieved'].value = data.fireDateAchieved || '';
-
-    form.elements['otherTraining'].value = data.otherTraining || '';
-    form.elements['otherCourseName'].value = data.otherCourseName || '';
-    form.elements['otherDateAchieved'].value = data.otherDateAchieved || '';
-
-    form.elements['agreementAccepted'].checked = data.agreementAccepted === true || data.agreementAccepted === 'true' || data.agreementAccepted === 'Yes';
-    form.elements['signatureName'].value = data.signatureName || '';
+  function escapeHtml(value) {
+    return String(value || '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
   }
 
   function buildPrintSummary(data) {
     const volunteerAreasText = Array.isArray(data.volunteerAreas)
       ? data.volunteerAreas.join(', ')
-      : escapeHtml(data.volunteerAreas || '');
+      : '';
 
     summaryContent.innerHTML = `
       <p><strong>Church Attended:</strong> ${escapeHtml(data.churchAttended)}</p>
@@ -530,62 +551,13 @@
       <p><strong>Date of Birth:</strong> ${escapeHtml(data.dateOfBirth)}</p>
       <p><strong>Gender:</strong> ${escapeHtml(data.gender)}</p>
       <p><strong>Volunteer Areas:</strong> ${escapeHtml(volunteerAreasText)}</p>
-
       <p><strong>Emergency Contact Name:</strong> ${escapeHtml(data.emergencyName)}</p>
       <p><strong>Emergency Contact Relationship:</strong> ${escapeHtml(data.emergencyRelationship)}</p>
       <p><strong>Emergency Contact Phone:</strong> ${escapeHtml(data.emergencyPhone)}</p>
       <p><strong>Emergency Contact Willing to Help:</strong> ${escapeHtml(data.emergencyWilling)}</p>
-
-      <p><strong>Served in Another Church in Last 2 Years:</strong> ${escapeHtml(data.servedAnotherChurch)}</p>
-      <p><strong>Last Church Served In:</strong> ${escapeHtml(data.lastChurchServed || '')}</p>
-      <p><strong>Committed Life to Jesus Christ:</strong> ${escapeHtml(data.committedToJesus)}</p>
-      <p><strong>Year Saved:</strong> ${escapeHtml(data.yearSaved || '')}</p>
-      <p><strong>Work, Hobbies and Skills:</strong> ${escapeHtml(data.workHobbiesSkills || '')}</p>
-
-      <p><strong>Claim - Physical Abuse:</strong> ${escapeHtml(data.claimPhysicalAbuse)}</p>
-      <p><strong>Claim - Sexual Abuse:</strong> ${escapeHtml(data.claimSexualAbuse)}</p>
-      <p><strong>Claim - Sexual Harassment:</strong> ${escapeHtml(data.claimSexualHarassment)}</p>
-      <p><strong>Claim - Domestic Violence:</strong> ${escapeHtml(data.claimDomesticViolence)}</p>
-      <p><strong>Employment Terminated for Above Reasons:</strong> ${escapeHtml(data.employmentTerminated)}</p>
-      <p><strong>Medical Information / Limitations:</strong> ${escapeHtml(data.medicalInformation || '')}</p>
-
-      <p><strong>Blue Card:</strong> ${escapeHtml(data.blueCard)}</p>
-      <p><strong>Blue Card Number:</strong> ${escapeHtml(data.blueCardNumber || '')}</p>
-      <p><strong>Blue Card Expiry:</strong> ${escapeHtml(data.blueCardExpiry || '')}</p>
-
-      <p><strong>Child Safe Training:</strong> ${escapeHtml(data.childSafeTraining)}</p>
-      <p><strong>Child Safe Course Name:</strong> ${escapeHtml(data.childSafeCourseName || '')}</p>
-      <p><strong>Child Safe Date Achieved:</strong> ${escapeHtml(data.childSafeDateAchieved || '')}</p>
-
-      <p><strong>Food Safety Training:</strong> ${escapeHtml(data.foodSafetyTraining)}</p>
-      <p><strong>Food Safety Course Name:</strong> ${escapeHtml(data.foodSafetyCourseName || '')}</p>
-      <p><strong>Food Safety Date Achieved:</strong> ${escapeHtml(data.foodSafetyDateAchieved || '')}</p>
-
-      <p><strong>First Aid Training:</strong> ${escapeHtml(data.firstAidTraining)}</p>
-      <p><strong>First Aid Course Name:</strong> ${escapeHtml(data.firstAidCourseName || '')}</p>
-      <p><strong>First Aid Date Achieved:</strong> ${escapeHtml(data.firstAidDateAchieved || '')}</p>
-
-      <p><strong>Fire Training:</strong> ${escapeHtml(data.fireTraining)}</p>
-      <p><strong>Fire Course Name:</strong> ${escapeHtml(data.fireCourseName || '')}</p>
-      <p><strong>Fire Date Achieved:</strong> ${escapeHtml(data.fireDateAchieved || '')}</p>
-
-      <p><strong>Other Training:</strong> ${escapeHtml(data.otherTraining)}</p>
-      <p><strong>Other Course Name:</strong> ${escapeHtml(data.otherCourseName || '')}</p>
-      <p><strong>Other Date Achieved:</strong> ${escapeHtml(data.otherDateAchieved || '')}</p>
-
-      <p><strong>Agreement Accepted:</strong> ${data.agreementAccepted ? 'Yes' : 'No'}</p>
       <p><strong>Electronic Signature:</strong> ${escapeHtml(data.signatureName)}</p>
-      <p><strong>Signature Timestamp:</strong> ${escapeHtml(data.signatureTimestamp || '')}</p>
+      <p><strong>Signature Timestamp:</strong> ${escapeHtml(data.signatureTimestamp)}</p>
     `;
-  }
-
-  function escapeHtml(value) {
-    return String(value || '')
-      .replaceAll('&', '&amp;')
-      .replaceAll('<', '&lt;')
-      .replaceAll('>', '&gt;')
-      .replaceAll('"', '&quot;')
-      .replaceAll("'", '&#039;');
   }
 
   function showForm() {
@@ -608,6 +580,11 @@
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
+    if (!verifiedEmail) {
+      feedback.textContent = 'Please verify your email before submitting the form.';
+      return;
+    }
+
     const data = collectFormData();
 
     if (data.volunteerAreas.length === 0) {
@@ -627,59 +604,16 @@
       const result = await response.json();
 
       if (result.success) {
-        localStorage.setItem('volunteerApplicationData', JSON.stringify(data));
         buildPrintSummary(data);
         showSummary();
         feedback.textContent = '';
       } else {
-        feedback.textContent = 'There was a problem saving the form: ' + (result.message || 'Unknown error');
+        feedback.textContent = result.message || 'There was a problem saving the form.';
       }
     } catch (error) {
-      feedback.textContent = 'There was a problem submitting the form. Please check the web app URL and try again.';
+      feedback.textContent = 'There was a problem submitting the form.';
     }
   });
-
-  async function login() {
-    const email = document.getElementById('userEmail').value.trim();
-    const loginFeedback = document.getElementById('loginFeedback');
-
-    if (!email) {
-      loginFeedback.textContent = 'Please enter your email.';
-      return;
-    }
-
-    try {
-      const response = await fetch(`${WEB_APP_URL}?email=${encodeURIComponent(email)}`);
-      const result = await response.json();
-
-      if (result.found && result.data) {
-        localStorage.setItem('volunteerApplicationData', JSON.stringify(result.data));
-        populateForm(result.data);
-        buildPrintSummary(result.data);
-        loginFeedback.textContent = 'Application found. Loading your saved details...';
-        showForm();
-      } else {
-        form.reset();
-        form.elements['email'].value = email;
-        localStorage.removeItem('volunteerApplicationData');
-        loginFeedback.textContent = 'New applicant — please complete the volunteer application form.';
-        showForm();
-      }
-    } catch (error) {
-      loginFeedback.textContent = 'Error connecting. Please try again.';
-    }
-  }
-
-  const savedData = localStorage.getItem('volunteerApplicationData');
-  if (savedData) {
-    try {
-      const data = JSON.parse(savedData);
-      populateForm(data);
-      buildPrintSummary(data);
-    } catch (error) {
-      localStorage.removeItem('volunteerApplicationData');
-    }
-  }
 </script>
 
 </body>
