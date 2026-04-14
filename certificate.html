@@ -1,0 +1,66 @@
+DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Family Church Volunteer Induction</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="certificate-header">
+  <img src="images/logo.png" alt="First Steps logo" class="logo">
+  <div class="header-text">
+    <h1>Certificate of Completion</h1>
+    <h2>Family Church Volunteer Induction</h2>
+  </div>
+</header>
+
+<main>
+  <section class="slide active certificate-card">
+    <p class="certificate-intro">This certificate is proudly presented to</p>
+
+    <h3 id="certName" class="certificate-name">Staff Member</h3>
+
+    <p class="certificate-text">
+      for successfully completing the Family Church Volunteer Induction, including all required modules and final acknowledgement.
+    </p>
+
+    <div class="content-box certificate-details">
+      <p><strong>Centre:</strong> <span id="certCentre"></span></p>
+      <p><strong>Position:</strong> <span id="certPosition"></span></p>
+      <p><strong>Email:</strong> <span id="certEmail"></span></p>
+      <p><strong>Date Completed:</strong> <span id="certDate"></span></p>
+    </div>
+
+    <p class="certificate-footer-text">
+      Family Church acknowledges your commitment to safe, professional, and high-quality practice.
+    </p>
+
+    <div class="certificate-actions no-print">
+      <button type="button" onclick="window.print()">Print Certificate</button>
+      <button type="button" onclick="window.location.href='index.html'">Return to Home</button>
+    </div>
+  </section>
+</main>
+
+<script>
+  const userData = JSON.parse(localStorage.getItem('preInductionData')) || {};
+  const today = new Date();
+
+  function formatDate(date) {
+    return date.toLocaleDateString('en-AU', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  }
+
+  document.getElementById('certName').textContent = userData.fullName || 'Staff Member';
+  document.getElementById('certCentre').textContent = userData.centre || '';
+  document.getElementById('certPosition').textContent = userData.position || '';
+  document.getElementById('certEmail').textContent = userData.email || '';
+  document.getElementById('certDate').textContent = formatDate(today);
+</script>
+
+</body>
+</html>

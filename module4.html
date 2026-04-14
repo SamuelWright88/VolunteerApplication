@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 4 – Privacy & Screening</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    .slide { display: none; }
+    .slide.active { display: block; }
+    #scenario1Feedback, #scenario2Feedback, #scenario3Feedback, #quizFeedback, #ackFeedback { margin-top: 10px; font-weight: bold; }
+    button { margin-top: 15px; padding: 8px 12px; cursor: pointer; }
+    ul { margin-top: 10px; }
+    .content-box { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin-top: 15px; }
+    .policy-ref { margin-top: 20px; font-size: 0.95em; color: #444; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Family Church Volunteer Induction</h1>
+  <h2>Module 4: Privacy & Screening</h2>
+</header>
+
+<main>
+
+<!-- Slide 1 -->
+<section class="slide active">
+  <h3>Welcome to Privacy & Screening</h3>
+  <p>This module explains how we protect personal information and ensure safe, suitable people are working within the church.</p>
+  <ul>
+    <li>understand privacy responsibilities</li>
+    <li>learn how information must be handled</li>
+    <li>understand screening and Blue Card requirements</li>
+    <li>apply safe practices in real situations</li>
+  </ul>
+  <p>Privacy and screening protect individuals, families and the church.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 2 -->
+<section class="slide">
+  <h3>Why Privacy Matters</h3>
+  <p>Churches collect and hold personal and sensitive information.</p>
+  <ul>
+    <li>names, contact details and family information</li>
+    <li>medical information</li>
+    <li>attendance and participation records</li>
+    <li>child safety or incident records</li>
+  </ul>
+  <p>This information must be handled carefully, respectfully and lawfully.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 3 -->
+<section class="slide">
+  <h3>Your Responsibilities</h3>
+  <p>As a volunteer, you must:</p>
+  <ul>
+    <li>keep personal information confidential</li>
+    <li>only access information needed for your role</li>
+    <li>use information only for its intended purpose</li>
+    <li>store and handle information securely</li>
+    <li>report any misuse or breach of information</li>
+  </ul>
+  <p>Privacy is a responsibility, not just a system.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 4 -->
+<section class="slide">
+  <h3>What You Must Not Do</h3>
+  <ul>
+    <li>share personal information with others unnecessarily</li>
+    <li>discuss private matters casually with others</li>
+    <li>post photos or details without permission</li>
+    <li>store information on personal devices without approval</li>
+    <li>access records you do not need</li>
+  </ul>
+  <div class="content-box">
+    If in doubt — don’t share it.
+  </div>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 5 -->
+<section class="slide">
+  <h3>Photos and Media</h3>
+  <p>Photos and videos must be handled carefully.</p>
+  <ul>
+    <li>only take photos in line with church procedures</li>
+    <li>respect opt-out and consent requirements</li>
+    <li>do not post identifiable images without approval</li>
+    <li>consider safety before sharing any content</li>
+  </ul>
+  <p>Images can expose identity and location, especially for children.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 6 -->
+<section class="slide">
+  <h3>Handling Sensitive Information</h3>
+  <p>Sensitive information requires extra care.</p>
+  <ul>
+    <li>medical conditions</li>
+    <li>child safety concerns</li>
+    <li>family or custody matters</li>
+  </ul>
+  <p>This information must only be shared with authorised people when necessary.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 7 -->
+<section class="slide">
+  <h3>Screening and Blue Cards</h3>
+  <p>Screening ensures safe and suitable people work with children.</p>
+  <ul>
+    <li>all adults working with children must hold a valid Blue Card</li>
+    <li>screening must be completed before starting</li>
+    <li>clearances must remain current</li>
+  </ul>
+  <p>Screening is a legal requirement and a safety measure.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 8 -->
+<section class="slide">
+  <h3>Ongoing Suitability</h3>
+  <p>Screening is not a one-time check.</p>
+  <ul>
+    <li>ongoing supervision and accountability apply</li>
+    <li>concerns about behaviour must be raised</li>
+    <li>changes in circumstances may affect suitability</li>
+  </ul>
+  <p>Safe people are supported, supervised and accountable.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 9 -->
+<section class="slide">
+  <h3>Data Security</h3>
+  <p>Information must be stored and handled securely.</p>
+  <ul>
+    <li>use approved systems and storage</li>
+    <li>do not leave records unattended</li>
+    <li>log out of shared devices</li>
+    <li>protect passwords and access</li>
+  </ul>
+  <p>Security failures can expose sensitive information.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 10 -->
+<section class="slide">
+  <h3>When a Breach Happens</h3>
+  <p>If information is shared incorrectly or lost:</p>
+  <ul>
+    <li>report it immediately</li>
+    <li>do not attempt to hide the issue</li>
+    <li>follow church procedures</li>
+  </ul>
+  <p>Quick action reduces risk and harm.</p>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 11 -->
+<section class="slide">
+  <h3>Scenario 1: Sharing Information</h3>
+  <p>A parent asks about another child’s behaviour.</p>
+
+  <form>
+    <label><input type="radio" name="s1" value="1"> Share what you know to be helpful.</label><br>
+    <label><input type="radio" name="s1" value="2"> Keep information confidential and redirect appropriately.</label><br>
+    <label><input type="radio" name="s1" value="3"> Tell them later privately.</label><br>
+    <button type="button" onclick="checkScenario1()">Submit</button>
+  </form>
+
+  <div id="scenario1Feedback"></div>
+</section>
+
+<!-- Slide 12 -->
+<section class="slide">
+  <h3>Scenario 2: Blue Card</h3>
+  <p>A volunteer without a Blue Card offers to help.</p>
+
+  <form>
+    <label><input type="radio" name="s2" value="1"> Let them help for today only.</label><br>
+    <label><input type="radio" name="s2" value="2"> Do not allow them to work with children until cleared.</label><br>
+    <label><input type="radio" name="s2" value="3"> Supervise them loosely.</label><br>
+    <button type="button" onclick="checkScenario2()">Submit</button>
+  </form>
+
+  <div id="scenario2Feedback"></div>
+</section>
+
+<!-- Slide 13 -->
+<section class="slide">
+  <h3>Scenario 3: Photos</h3>
+  <p>You want to post photos from a church event.</p>
+
+  <form>
+    <label><input type="radio" name="s3" value="1"> Post them immediately.</label><br>
+    <label><input type="radio" name="s3" value="2"> Check permissions and procedures first.</label><br>
+    <label><input type="radio" name="s3" value="3"> Send privately only.</label><br>
+    <button type="button" onclick="checkScenario3()">Submit</button>
+  </form>
+
+  <div id="scenario3Feedback"></div>
+</section>
+
+<!-- Slide 14 -->
+<section class="slide">
+  <h3>Key Takeaways</h3>
+  <ul>
+    <li>privacy protects individuals and families</li>
+    <li>information must be handled carefully</li>
+    <li>screening ensures safe people work with children</li>
+    <li>Blue Cards are mandatory for child-related work</li>
+    <li>breaches must be reported immediately</li>
+  </ul>
+  <button onclick="nextSlide()">Next</button>
+</section>
+
+<!-- Slide 15 -->
+<section class="slide">
+  <h3>Knowledge Check</h3>
+
+  <p><strong>Q1:</strong> Can you share personal information freely?</p>
+  <label><input type="radio" name="q1" value="no"> No</label><br>
+  <label><input type="radio" name="q1" value="yes"> Yes</label><br>
+
+  <p><strong>Q2:</strong> Do volunteers need a Blue Card?</p>
+  <label><input type="radio" name="q2" value="yes"> Yes</label><br>
+  <label><input type="radio" name="q2" value="no"> No</label><br>
+
+  <button onclick="submitQuiz()">Submit</button>
+  <div id="quizFeedback"></div>
+</section>
+
+<!-- Slide 16 -->
+<section class="slide">
+  <h3>Module Complete</h3>
+  <p>You have completed Module 4: Privacy & Screening.</p>
+  <p>You have now finished the full volunteer induction.</p>
+  <button type="button" onclick="window.location.href='certificate.html'">View Completion Certificate</button>
+</section>
+
+</main>
+
+<script>
+  const MODULE_NAME = 'module4';
+  const NEXT_MODULE = 'certificate.html';
+  const REQUIRED_PREVIOUS = ['module1', 'module2', 'module3'];
+
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function nextSlide() {
+    if (currentSlide < slides.length - 1) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide++;
+      slides[currentSlide].classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  }
+
+  function saveProgress() {
+    const progress = JSON.parse(localStorage.getItem('progress') || '{}');
+    progress[MODULE_NAME] = true;
+    localStorage.setItem('progress', JSON.stringify(progress));
+  }
+
+  function completeModule() {
+    saveProgress();
+    window.location.href = NEXT_MODULE;
+  }
+
+  function checkRequiredModules() {
+    const progress = JSON.parse(localStorage.getItem('progress') || '{}');
+
+    for (const moduleName of REQUIRED_PREVIOUS) {
+      if (!progress[moduleName]) {
+        alert('Please complete the previous module first.');
+        window.location.href = moduleName + '.html';
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function checkScenario1() {
+    const selected = document.querySelector('input[name="scenario1"]:checked');
+    const feedback = document.getElementById('scenario1Feedback');
+
+    if (!selected) {
+      feedback.textContent = "Please select an answer.";
+      return;
+    }
+
+    if (selected.value === "2") {
+      feedback.textContent = "Correct.";
+      setTimeout(() => { nextSlide(); }, 1000);
+    } else {
+      feedback.textContent = "Incorrect. Please review the content and try again.";
+    }
+  }
+
+  function checkScenario2() {
+    const selected = document.querySelector('input[name="scenario2"]:checked');
+    const feedback = document.getElementById('scenario2Feedback');
+
+    if (!selected) {
+      feedback.textContent = "Please select an answer.";
+      return;
+    }
+
+    if (selected.value === "2") {
+      feedback.textContent = "Correct.";
+      setTimeout(() => { nextSlide(); }, 1000);
+    } else {
+      feedback.textContent = "Incorrect. Please review the content and try again.";
+    }
+  }
+
+  function checkScenario3() {
+    const selected = document.querySelector('input[name="scenario3"]:checked');
+    const feedback = document.getElementById('scenario3Feedback');
+
+    if (!selected) {
+      feedback.textContent = "Please select an answer.";
+      return;
+    }
+
+    if (selected.value === "2") {
+      feedback.textContent = "Correct.";
+      setTimeout(() => { nextSlide(); }, 1000);
+    } else {
+      feedback.textContent = "Incorrect. Please review the content and try again.";
+    }
+  }
+
+  function submitQuiz(correctAnswers) {
+    const feedback = document.getElementById('quizFeedback');
+    let score = 0;
+
+    for (const [name, correctValue] of Object.entries(correctAnswers)) {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+      if (!selected) {
+        feedback.textContent = "Please answer all questions before submitting.";
+        return;
+      }
+      if (selected.value === correctValue) score++;
+    }
+
+    if (score === Object.keys(correctAnswers).length) {
+      feedback.textContent = "Correct. You may continue.";
+      setTimeout(() => { nextSlide(); }, 1000);
+    } else {
+      feedback.textContent = "Some answers are incorrect. Please review the module and try again.";
+    }
+  }
+
+  function submitAcknowledgement() {
+    const box = document.getElementById('acknowledgeBox');
+    const feedback = document.getElementById('ackFeedback');
+
+    if (!box.checked) {
+      feedback.textContent = "Please tick the acknowledgement box before continuing.";
+      return;
+    }
+
+    feedback.textContent = "Acknowledgement confirmed.";
+    setTimeout(() => { nextSlide(); }, 1000);
+  }
+
+  window.addEventListener('load', checkRequiredModules);
+</script>
+
+</body>
+</html>

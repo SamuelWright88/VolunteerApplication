@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Family Church Volunteer Application Form</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <img src="images/logo.png" alt="Church logo" class="logo">
+  <div class="header-text">
+    <h1>Family Church Volunteer Application Form</h1>
+    <h2>Welcome to our volunteer application process</h2>
+  </div>
+</header>
+
+<main id="maincontent">
+
+  <section id="loginSection" class="slide active">
+    <h3>Start or Resume Your Application</h3>
+    <p>Enter your email to start a new application or resume an existing one.</p>
+
+    <input type="email" id="userEmail" required>
+    <button type="button" onclick="login()">Continue</button>
+
+    <div id="loginFeedback" class="feedback-box" aria-live="polite"></div>
+  </section>
+
+  <section class="slide" id="applicationFormSection">
+    <h3>Volunteer Application Form</h3>
+    <p>
+      Thank you for your willingness to serve our community on one of our teams.
+      This form is for community members of Cairns Family Church and affiliated churches
+      who desire to volunteer in the services and programs that we run.
+      Please set aside some time to fill out this form so that we can get to know you more.
+    </p>
+
+    <form id="volunteerApplicationForm">
+
+      <h4>Section 1 of 5 — Personal Details</h4>
+
+      <label>
+        Which Church do you attend?<br>
+        <select name="churchAttended" required>
+          <option value="">Select one</option>
+          <option value="Cairns Family Church">Cairns Family Church</option>
+          <option value="Atherton Family Church">Atherton Family Church</option>
+          <option value="Innisfail Family Church">Innisfail Family Church</option>
+          <option value="Nepalese Family Church">Nepalese Family Church</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        First Name<br>
+        <input type="text" name="firstName" required>
+      </label><br><br>
+
+      <label>
+        Last Name<br>
+        <input type="text" name="lastName" required>
+      </label><br><br>
+
+      <label>
+        Address<br>
+        <input type="text" name="address" required>
+      </label><br><br>
+
+      <label>
+        Phone No.<br>
+        <input type="tel" name="phone" required>
+      </label><br><br>
+
+      <label>
+        Email Address<br>
+        <input type="email" name="email" required>
+      </label><br><br>
+
+      <label>
+        Date of Birth<br>
+        <input type="date" name="dateOfBirth" required>
+      </label><br><br>
+
+      <label>
+        Gender<br>
+        <select name="gender" required>
+          <option value="">Select one</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </label><br><br>
+
+      <fieldset>
+        <legend>What areas would you like to volunteer in?</legend>
+        <label><input type="checkbox" name="volunteerAreas" value="Kids Ministry"> Kids Ministry</label><br>
+        <label><input type="checkbox" name="volunteerAreas" value="Youth Ministry"> Youth Ministry</label><br>
+        <label><input type="checkbox" name="volunteerAreas" value="Hospitality"> Hospitality</label><br>
+        <label><input type="checkbox" name="volunteerAreas" value="Music and worship"> Music and worship</label><br>
+        <label><input type="checkbox" name="volunteerAreas" value="Property maintenance and cleaning"> Property maintenance and cleaning</label><br>
+        <label><input type="checkbox" name="volunteerAreas" value="Welcome team"> Welcome team</label><br>
+        <label><input type="checkbox" name="volunteerAreas" value="Administration"> Administration</label>
+      </fieldset><br>
+
+      <h4>Section 2 of 5 — Emergency Contact</h4>
+      <p>
+        Please share the details of a person who is capable and willing to respond in the case of an emergency.
+      </p>
+
+      <label>
+        Name<br>
+        <input type="text" name="emergencyName" required>
+      </label><br><br>
+
+      <label>
+        Relationship to You<br>
+        <input type="text" name="emergencyRelationship" required>
+      </label><br><br>
+
+      <label>
+        Primary Phone No.<br>
+        <input type="tel" name="emergencyPhone" required>
+      </label><br><br>
+
+      <label>
+        Are they capable and willing to help in an emergency?<br>
+        <select name="emergencyWilling" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <h4>Section 3 of 5 — Christian Background</h4>
+      <p>
+        Letting us know about your Christian background will inform us about ways that we can support you in your service and ensure that we are not making any assumptions.
+      </p>
+
+      <label>
+        Have you served in another church in the last 2 years?<br>
+        <select name="servedAnotherChurch" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        If yes, what was the church you last served in?<br>
+        <input type="text" name="lastChurchServed">
+      </label><br><br>
+
+      <label>
+        Have you committed your life to Jesus Christ?<br>
+        <select name="committedToJesus" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Year Saved<br>
+        <input type="text" name="yearSaved">
+      </label><br><br>
+
+      <label>
+        Work, Hobbies and Skills<br>
+        <textarea name="workHobbiesSkills" rows="4"></textarea>
+      </label><br><br>
+
+      <h4>Section 4 of 5 — Background Information</h4>
+
+      <p>Has anyone ever brought or threatened to bring a civil or criminal claim against you for any of the following?</p>
+
+      <label>
+        Physical Abuse<br>
+        <select name="claimPhysicalAbuse" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Sexual Abuse<br>
+        <select name="claimSexualAbuse" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Sexual Harassment<br>
+        <select name="claimSexualHarassment" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Domestic Violence<br>
+        <select name="claimDomesticViolence" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Have you ever had employment terminated for the above reasons?<br>
+        <select name="employmentTerminated" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Is there any medical condition, relevant information or limitation that may affect your ability to fully participate as a volunteer?<br>
+        <textarea name="medicalInformation" rows="4"></textarea>
+      </label><br><br>
+
+      <h4>Certificates / Clearances</h4>
+
+      <label>
+        Blue Card<br>
+        <select name="blueCard" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Blue Card Number<br>
+        <input type="text" name="blueCardNumber">
+      </label><br><br>
+
+      <label>
+        Blue Card Expiry Date<br>
+        <input type="date" name="blueCardExpiry">
+      </label><br><br>
+
+      <label>
+        Child Safe Training / Certificate<br>
+        <select name="childSafeTraining" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Child Safe Course Name<br>
+        <input type="text" name="childSafeCourseName">
+      </label><br><br>
+
+      <label>
+        Child Safe Date Achieved<br>
+        <input type="date" name="childSafeDateAchieved">
+      </label><br><br>
+
+      <label>
+        Food Safety Training / Certificate<br>
+        <select name="foodSafetyTraining" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Food Safety Course Name<br>
+        <input type="text" name="foodSafetyCourseName">
+      </label><br><br>
+
+      <label>
+        Food Safety Date Achieved<br>
+        <input type="date" name="foodSafetyDateAchieved">
+      </label><br><br>
+
+      <label>
+        First Aid Certificate<br>
+        <select name="firstAidTraining" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        First Aid Course Name<br>
+        <input type="text" name="firstAidCourseName">
+      </label><br><br>
+
+      <label>
+        First Aid Date Achieved<br>
+        <input type="date" name="firstAidDateAchieved">
+      </label><br><br>
+
+      <label>
+        Fire Training / Certificate<br>
+        <select name="fireTraining" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Fire Training Course Name<br>
+        <input type="text" name="fireCourseName">
+      </label><br><br>
+
+      <label>
+        Fire Training Date Achieved<br>
+        <input type="date" name="fireDateAchieved">
+      </label><br><br>
+
+      <label>
+        Other Certificate / Clearance<br>
+        <select name="otherTraining" required>
+          <option value="">Select one</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </label><br><br>
+
+      <label>
+        Other Course Name<br>
+        <input type="text" name="otherCourseName">
+      </label><br><br>
+
+      <label>
+        Other Date Achieved<br>
+        <input type="date" name="otherDateAchieved">
+      </label><br><br>
+
+      <h4>Section 5 of 5 — Agreement</h4>
+
+      <label>
+        <input type="checkbox" name="agreementAccepted" required>
+        I agree to support and act in accordance with Cairns Family Church Inc's vision, values, policies and procedures. I agree that the information in this application is complete, accurate and not misleading in any way.
+      </label><br><br>
+
+      <label>
+        Electronic Signature<br>
+        <input type="text" name="signatureName" required>
+      </label><br><br>
+
+      <button type="submit">Save and Continue</button>
+    </form>
+
+    <div id="formFeedback" class="feedback-box" aria-live="polite"></div>
+  </section>
+
+  <section class="slide" id="printSummarySection">
+    <h3>Volunteer Application Summary</h3>
+    <div class="content-box" id="printSummaryContent"></div>
+
+    <button type="button" onclick="window.print()">Print Record</button>
+    <button type="button" onclick="editApplication()">Edit Application</button>
+    <button type="button" onclick="window.location.href='module1.html'">Start Module 1</button>
+  </section>
+
+</main>
+
+<script>
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
+
+  const form = document.getElementById('volunteerApplicationForm');
+  const feedback = document.getElementById('formFeedback');
+  const loginSection = document.getElementById('loginSection');
+  const formSection = document.getElementById('applicationFormSection');
+  const summarySection = document.getElementById('printSummarySection');
+  const summaryContent = document.getElementById('printSummaryContent');
+
+  function getCheckedValues(name) {
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value);
+  }
+
+  function setCheckedValues(name, values) {
+    const selectedValues = Array.isArray(values)
+      ? values
+      : String(values || '').split(',').map(v => v.trim()).filter(Boolean);
+
+    document.querySelectorAll(`input[name="${name}"]`).forEach(cb => {
+      cb.checked = selectedValues.includes(cb.value);
+    });
+  }
+
+  function currentTimestamp() {
+    const now = new Date();
+    return now.toISOString();
+  }
+
+  function collectFormData() {
+    const formData = new FormData(form);
+
+    return {
+      churchAttended: formData.get('churchAttended'),
+      firstName: formData.get('firstName'),
+      lastName: formData.get('lastName'),
+      address: formData.get('address'),
+      phone: formData.get('phone'),
+      email: formData.get('email'),
+      dateOfBirth: formData.get('dateOfBirth'),
+      gender: formData.get('gender'),
+      volunteerAreas: getCheckedValues('volunteerAreas'),
+
+      emergencyName: formData.get('emergencyName'),
+      emergencyRelationship: formData.get('emergencyRelationship'),
+      emergencyPhone: formData.get('emergencyPhone'),
+      emergencyWilling: formData.get('emergencyWilling'),
+
+      servedAnotherChurch: formData.get('servedAnotherChurch'),
+      lastChurchServed: formData.get('lastChurchServed'),
+      committedToJesus: formData.get('committedToJesus'),
+      yearSaved: formData.get('yearSaved'),
+      workHobbiesSkills: formData.get('workHobbiesSkills'),
+
+      claimPhysicalAbuse: formData.get('claimPhysicalAbuse'),
+      claimSexualAbuse: formData.get('claimSexualAbuse'),
+      claimSexualHarassment: formData.get('claimSexualHarassment'),
+      claimDomesticViolence: formData.get('claimDomesticViolence'),
+      employmentTerminated: formData.get('employmentTerminated'),
+      medicalInformation: formData.get('medicalInformation'),
+
+      blueCard: formData.get('blueCard'),
+      blueCardNumber: formData.get('blueCardNumber'),
+      blueCardExpiry: formData.get('blueCardExpiry'),
+
+      childSafeTraining: formData.get('childSafeTraining'),
+      childSafeCourseName: formData.get('childSafeCourseName'),
+      childSafeDateAchieved: formData.get('childSafeDateAchieved'),
+
+      foodSafetyTraining: formData.get('foodSafetyTraining'),
+      foodSafetyCourseName: formData.get('foodSafetyCourseName'),
+      foodSafetyDateAchieved: formData.get('foodSafetyDateAchieved'),
+
+      firstAidTraining: formData.get('firstAidTraining'),
+      firstAidCourseName: formData.get('firstAidCourseName'),
+      firstAidDateAchieved: formData.get('firstAidDateAchieved'),
+
+      fireTraining: formData.get('fireTraining'),
+      fireCourseName: formData.get('fireCourseName'),
+      fireDateAchieved: formData.get('fireDateAchieved'),
+
+      otherTraining: formData.get('otherTraining'),
+      otherCourseName: formData.get('otherCourseName'),
+      otherDateAchieved: formData.get('otherDateAchieved'),
+
+      agreementAccepted: formData.get('agreementAccepted') === 'on',
+      signatureName: formData.get('signatureName'),
+      signatureTimestamp: currentTimestamp()
+    };
+  }
+
+  function populateForm(data) {
+    form.elements['churchAttended'].value = data.churchAttended || '';
+    form.elements['firstName'].value = data.firstName || '';
+    form.elements['lastName'].value = data.lastName || '';
+    form.elements['address'].value = data.address || '';
+    form.elements['phone'].value = data.phone || '';
+    form.elements['email'].value = data.email || '';
+    form.elements['dateOfBirth'].value = data.dateOfBirth || '';
+    form.elements['gender'].value = data.gender || '';
+    setCheckedValues('volunteerAreas', data.volunteerAreas || []);
+
+    form.elements['emergencyName'].value = data.emergencyName || '';
+    form.elements['emergencyRelationship'].value = data.emergencyRelationship || '';
+    form.elements['emergencyPhone'].value = data.emergencyPhone || '';
+    form.elements['emergencyWilling'].value = data.emergencyWilling || '';
+
+    form.elements['servedAnotherChurch'].value = data.servedAnotherChurch || '';
+    form.elements['lastChurchServed'].value = data.lastChurchServed || '';
+    form.elements['committedToJesus'].value = data.committedToJesus || '';
+    form.elements['yearSaved'].value = data.yearSaved || '';
+    form.elements['workHobbiesSkills'].value = data.workHobbiesSkills || '';
+
+    form.elements['claimPhysicalAbuse'].value = data.claimPhysicalAbuse || '';
+    form.elements['claimSexualAbuse'].value = data.claimSexualAbuse || '';
+    form.elements['claimSexualHarassment'].value = data.claimSexualHarassment || '';
+    form.elements['claimDomesticViolence'].value = data.claimDomesticViolence || '';
+    form.elements['employmentTerminated'].value = data.employmentTerminated || '';
+    form.elements['medicalInformation'].value = data.medicalInformation || '';
+
+    form.elements['blueCard'].value = data.blueCard || '';
+    form.elements['blueCardNumber'].value = data.blueCardNumber || '';
+    form.elements['blueCardExpiry'].value = data.blueCardExpiry || '';
+
+    form.elements['childSafeTraining'].value = data.childSafeTraining || '';
+    form.elements['childSafeCourseName'].value = data.childSafeCourseName || '';
+    form.elements['childSafeDateAchieved'].value = data.childSafeDateAchieved || '';
+
+    form.elements['foodSafetyTraining'].value = data.foodSafetyTraining || '';
+    form.elements['foodSafetyCourseName'].value = data.foodSafetyCourseName || '';
+    form.elements['foodSafetyDateAchieved'].value = data.foodSafetyDateAchieved || '';
+
+    form.elements['firstAidTraining'].value = data.firstAidTraining || '';
+    form.elements['firstAidCourseName'].value = data.firstAidCourseName || '';
+    form.elements['firstAidDateAchieved'].value = data.firstAidDateAchieved || '';
+
+    form.elements['fireTraining'].value = data.fireTraining || '';
+    form.elements['fireCourseName'].value = data.fireCourseName || '';
+    form.elements['fireDateAchieved'].value = data.fireDateAchieved || '';
+
+    form.elements['otherTraining'].value = data.otherTraining || '';
+    form.elements['otherCourseName'].value = data.otherCourseName || '';
+    form.elements['otherDateAchieved'].value = data.otherDateAchieved || '';
+
+    form.elements['agreementAccepted'].checked = data.agreementAccepted === true || data.agreementAccepted === 'true' || data.agreementAccepted === 'Yes';
+    form.elements['signatureName'].value = data.signatureName || '';
+  }
+
+  function buildPrintSummary(data) {
+    const volunteerAreasText = Array.isArray(data.volunteerAreas)
+      ? data.volunteerAreas.join(', ')
+      : escapeHtml(data.volunteerAreas || '');
+
+    summaryContent.innerHTML = `
+      <p><strong>Church Attended:</strong> ${escapeHtml(data.churchAttended)}</p>
+      <p><strong>First Name:</strong> ${escapeHtml(data.firstName)}</p>
+      <p><strong>Last Name:</strong> ${escapeHtml(data.lastName)}</p>
+      <p><strong>Address:</strong> ${escapeHtml(data.address)}</p>
+      <p><strong>Phone No.:</strong> ${escapeHtml(data.phone)}</p>
+      <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+      <p><strong>Date of Birth:</strong> ${escapeHtml(data.dateOfBirth)}</p>
+      <p><strong>Gender:</strong> ${escapeHtml(data.gender)}</p>
+      <p><strong>Volunteer Areas:</strong> ${escapeHtml(volunteerAreasText)}</p>
+
+      <p><strong>Emergency Contact Name:</strong> ${escapeHtml(data.emergencyName)}</p>
+      <p><strong>Emergency Contact Relationship:</strong> ${escapeHtml(data.emergencyRelationship)}</p>
+      <p><strong>Emergency Contact Phone:</strong> ${escapeHtml(data.emergencyPhone)}</p>
+      <p><strong>Emergency Contact Willing to Help:</strong> ${escapeHtml(data.emergencyWilling)}</p>
+
+      <p><strong>Served in Another Church in Last 2 Years:</strong> ${escapeHtml(data.servedAnotherChurch)}</p>
+      <p><strong>Last Church Served In:</strong> ${escapeHtml(data.lastChurchServed || '')}</p>
+      <p><strong>Committed Life to Jesus Christ:</strong> ${escapeHtml(data.committedToJesus)}</p>
+      <p><strong>Year Saved:</strong> ${escapeHtml(data.yearSaved || '')}</p>
+      <p><strong>Work, Hobbies and Skills:</strong> ${escapeHtml(data.workHobbiesSkills || '')}</p>
+
+      <p><strong>Claim - Physical Abuse:</strong> ${escapeHtml(data.claimPhysicalAbuse)}</p>
+      <p><strong>Claim - Sexual Abuse:</strong> ${escapeHtml(data.claimSexualAbuse)}</p>
+      <p><strong>Claim - Sexual Harassment:</strong> ${escapeHtml(data.claimSexualHarassment)}</p>
+      <p><strong>Claim - Domestic Violence:</strong> ${escapeHtml(data.claimDomesticViolence)}</p>
+      <p><strong>Employment Terminated for Above Reasons:</strong> ${escapeHtml(data.employmentTerminated)}</p>
+      <p><strong>Medical Information / Limitations:</strong> ${escapeHtml(data.medicalInformation || '')}</p>
+
+      <p><strong>Blue Card:</strong> ${escapeHtml(data.blueCard)}</p>
+      <p><strong>Blue Card Number:</strong> ${escapeHtml(data.blueCardNumber || '')}</p>
+      <p><strong>Blue Card Expiry:</strong> ${escapeHtml(data.blueCardExpiry || '')}</p>
+
+      <p><strong>Child Safe Training:</strong> ${escapeHtml(data.childSafeTraining)}</p>
+      <p><strong>Child Safe Course Name:</strong> ${escapeHtml(data.childSafeCourseName || '')}</p>
+      <p><strong>Child Safe Date Achieved:</strong> ${escapeHtml(data.childSafeDateAchieved || '')}</p>
+
+      <p><strong>Food Safety Training:</strong> ${escapeHtml(data.foodSafetyTraining)}</p>
+      <p><strong>Food Safety Course Name:</strong> ${escapeHtml(data.foodSafetyCourseName || '')}</p>
+      <p><strong>Food Safety Date Achieved:</strong> ${escapeHtml(data.foodSafetyDateAchieved || '')}</p>
+
+      <p><strong>First Aid Training:</strong> ${escapeHtml(data.firstAidTraining)}</p>
+      <p><strong>First Aid Course Name:</strong> ${escapeHtml(data.firstAidCourseName || '')}</p>
+      <p><strong>First Aid Date Achieved:</strong> ${escapeHtml(data.firstAidDateAchieved || '')}</p>
+
+      <p><strong>Fire Training:</strong> ${escapeHtml(data.fireTraining)}</p>
+      <p><strong>Fire Course Name:</strong> ${escapeHtml(data.fireCourseName || '')}</p>
+      <p><strong>Fire Date Achieved:</strong> ${escapeHtml(data.fireDateAchieved || '')}</p>
+
+      <p><strong>Other Training:</strong> ${escapeHtml(data.otherTraining)}</p>
+      <p><strong>Other Course Name:</strong> ${escapeHtml(data.otherCourseName || '')}</p>
+      <p><strong>Other Date Achieved:</strong> ${escapeHtml(data.otherDateAchieved || '')}</p>
+
+      <p><strong>Agreement Accepted:</strong> ${data.agreementAccepted ? 'Yes' : 'No'}</p>
+      <p><strong>Electronic Signature:</strong> ${escapeHtml(data.signatureName)}</p>
+      <p><strong>Signature Timestamp:</strong> ${escapeHtml(data.signatureTimestamp || '')}</p>
+    `;
+  }
+
+  function escapeHtml(value) {
+    return String(value || '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  function showForm() {
+    loginSection.classList.remove('active');
+    summarySection.classList.remove('active');
+    formSection.classList.add('active');
+  }
+
+  function showSummary() {
+    loginSection.classList.remove('active');
+    formSection.classList.remove('active');
+    summarySection.classList.add('active');
+  }
+
+  function editApplication() {
+    summarySection.classList.remove('active');
+    formSection.classList.add('active');
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const data = collectFormData();
+
+    if (data.volunteerAreas.length === 0) {
+      feedback.textContent = 'Please select at least one volunteer area.';
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        localStorage.setItem('volunteerApplicationData', JSON.stringify(data));
+        buildPrintSummary(data);
+        showSummary();
+        feedback.textContent = '';
+      } else {
+        feedback.textContent = 'There was a problem saving the form: ' + (result.message || 'Unknown error');
+      }
+    } catch (error) {
+      feedback.textContent = 'There was a problem submitting the form. Please check the web app URL and try again.';
+    }
+  });
+
+  async function login() {
+    const email = document.getElementById('userEmail').value.trim();
+    const loginFeedback = document.getElementById('loginFeedback');
+
+    if (!email) {
+      loginFeedback.textContent = 'Please enter your email.';
+      return;
+    }
+
+    try {
+      const response = await fetch(`${WEB_APP_URL}?email=${encodeURIComponent(email)}`);
+      const result = await response.json();
+
+      if (result.found && result.data) {
+        localStorage.setItem('volunteerApplicationData', JSON.stringify(result.data));
+        populateForm(result.data);
+        buildPrintSummary(result.data);
+        loginFeedback.textContent = 'Application found. Loading your saved details...';
+        showForm();
+      } else {
+        form.reset();
+        form.elements['email'].value = email;
+        localStorage.removeItem('volunteerApplicationData');
+        loginFeedback.textContent = 'New applicant — please complete the volunteer application form.';
+        showForm();
+      }
+    } catch (error) {
+      loginFeedback.textContent = 'Error connecting. Please try again.';
+    }
+  }
+
+  const savedData = localStorage.getItem('volunteerApplicationData');
+  if (savedData) {
+    try {
+      const data = JSON.parse(savedData);
+      populateForm(data);
+      buildPrintSummary(data);
+    } catch (error) {
+      localStorage.removeItem('volunteerApplicationData');
+    }
+  }
+</script>
+
+</body>
+</html>
