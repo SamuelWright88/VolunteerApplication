@@ -210,7 +210,44 @@
 
       <button type="button" onclick="submitQuiz()">Submit Knowledge Check</button>
     </form>
+<script>
+function submitQuiz() {
+  let score = 0;
 
+  const answers = {
+    q1: "a",
+    q2: "b",
+    q3: "true",
+    q4: "a",
+    q5: "b"
+  };
+
+  // Check answers
+  for (let q in answers) {
+    let selected = document.querySelector(`input[name="${q}"]:checked`);
+    if (selected && selected.value === answers[q]) {
+      score++;
+    }
+  }
+
+  let feedback = document.getElementById("quizFeedback");
+  let nextBtn = document.getElementById("nextButtonContainer");
+
+  // Reset button visibility
+  nextBtn.style.display = "none";
+
+  if (score === 5) {
+    feedback.innerHTML = `<p><strong>Excellent!</strong> You scored ${score}/5.</p>`;
+    nextBtn.style.display = "block";
+
+  } else if (score >= 4) {
+    feedback.innerHTML = `<p><strong>Passed!</strong> You scored ${score}/5.</p>`;
+    nextBtn.style.display = "block";
+
+  } else {
+    feedback.innerHTML = `<p><strong>Not quite yet.</strong> You scored ${score}/5. Please review and try again.</p>`;
+  }
+}
     <div id="quizFeedback"></div>
     <p class="policy-ref"><strong>Referenced documents:</strong> Church Vision, Mission & Core Values</p>
   </section>
