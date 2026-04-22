@@ -35,7 +35,7 @@
       <li>review privacy, social media and reporting expectations</li>
       <li>apply the policy to realistic situations</li>
     </ul>
-    <p>These expectations help protect children, young people, vulnerable adults, volunteers and the church. They also reduce the risk of harm, inappropriate behaviour and allegations. </p>
+    <p>These expectations help protect children, young people, vulnerable adults, volunteers and the church. They also reduce the risk of harm, inappropriate behaviour and allegations.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Code of Conduct; Child Safe Policy</p>
     <button type="button" onclick="nextSlide()">Next</button>
   </section>
@@ -326,7 +326,9 @@
       <label><input type="radio" name="q5" value="c"> The matter should always stay private and informal.</label><br>
 
       <button type="button" onclick="submitKnowledgeCheck()">Submit Knowledge Check</button>
-<div id="quizFeedback"></div>
+    </form>
+
+    <div id="quizFeedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Code of Conduct; Child Safe Policy; Privacy Policy</p>
   </section>
 
@@ -373,7 +375,8 @@
   const MODULE_NAME = 'module2';
   const MODULE_SHEET_COLUMN = 'Module 2 Complete';
   const NEXT_MODULE = 'module3.html';
-  const REQUIRED_PREVIOUS = [];
+  const REQUIRED_PREVIOUS = ['module1'];
+
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
 
@@ -393,29 +396,29 @@
   }
 
   async function completeModule() {
-  const email = localStorage.getItem('verifiedEmail');
+    const email = localStorage.getItem('verifiedEmail');
 
-  if (email) {
-    try {
-      await fetch(WEB_APP_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8'
-        },
-        body: JSON.stringify({
-          action: 'markModuleComplete',
-          email: email,
-          moduleName: MODULE_SHEET_COLUMN
-        })
-      });
-    } catch (error) {
-      console.error('Could not save module progress to sheet:', error);
+    if (email) {
+      try {
+        await fetch(WEB_APP_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({
+            action: 'markModuleComplete',
+            email: email,
+            moduleName: MODULE_SHEET_COLUMN
+          })
+        });
+      } catch (error) {
+        console.error('Could not save module progress to sheet:', error);
+      }
     }
-  }
 
-  saveProgress();
-  window.location.href = NEXT_MODULE;
-}
+    saveProgress();
+    window.location.href = NEXT_MODULE;
+  }
 
   function checkRequiredModules() {
     const progress = JSON.parse(localStorage.getItem('progress') || '{}');
@@ -435,15 +438,15 @@
     const feedback = document.getElementById('scenario1Feedback');
 
     if (!selected) {
-      feedback.textContent = "Please select an answer.";
+      feedback.textContent = 'Please select an answer.';
       return;
     }
 
-    if (selected.value === "2") {
-      feedback.textContent = "Correct.";
+    if (selected.value === '2') {
+      feedback.textContent = 'Correct.';
       setTimeout(() => { nextSlide(); }, 1000);
     } else {
-      feedback.textContent = "Incorrect. Please review the content and try again.";
+      feedback.textContent = 'Incorrect. Please review the content and try again.';
     }
   }
 
@@ -452,15 +455,15 @@
     const feedback = document.getElementById('scenario2Feedback');
 
     if (!selected) {
-      feedback.textContent = "Please select an answer.";
+      feedback.textContent = 'Please select an answer.';
       return;
     }
 
-    if (selected.value === "2") {
-      feedback.textContent = "Correct.";
+    if (selected.value === '2') {
+      feedback.textContent = 'Correct.';
       setTimeout(() => { nextSlide(); }, 1000);
     } else {
-      feedback.textContent = "Incorrect. Please review the content and try again.";
+      feedback.textContent = 'Incorrect. Please review the content and try again.';
     }
   }
 
@@ -469,62 +472,62 @@
     const feedback = document.getElementById('scenario3Feedback');
 
     if (!selected) {
-      feedback.textContent = "Please select an answer.";
+      feedback.textContent = 'Please select an answer.';
       return;
     }
 
-    if (selected.value === "2") {
-      feedback.textContent = "Correct.";
+    if (selected.value === '2') {
+      feedback.textContent = 'Correct.';
       setTimeout(() => { nextSlide(); }, 1000);
     } else {
-      feedback.textContent = "Incorrect. Please review the content and try again.";
+      feedback.textContent = 'Incorrect. Please review the content and try again.';
     }
   }
 
   function submitKnowledgeCheck() {
-  const feedback = document.getElementById('quizFeedback');
+    const feedback = document.getElementById('quizFeedback');
 
-  const answers = {
-    q1: "a",
-    q2: "true",
-    q3: "b",
-    q4: "b",
-    q5: "b"
-  };
+    const answers = {
+      q1: 'a',
+      q2: 'true',
+      q3: 'b',
+      q4: 'b',
+      q5: 'b'
+    };
 
-  let score = 0;
+    let score = 0;
 
-  for (const [name, correctValue] of Object.entries(answers)) {
-    const selected = document.querySelector(`input[name="${name}"]:checked`);
+    for (const [name, correctValue] of Object.entries(answers)) {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
 
-    if (!selected) {
-      feedback.textContent = 'Please answer all questions before submitting.';
-      return;
+      if (!selected) {
+        feedback.textContent = 'Please answer all questions before submitting.';
+        return;
+      }
+
+      if (selected.value === correctValue) {
+        score++;
+      }
     }
 
-    if (selected.value === correctValue) {
-      score++;
+    if (score >= 4) {
+      feedback.textContent = `Passed. You scored ${score}/5.`;
+      setTimeout(() => { nextSlide(); }, 1000);
+    } else {
+      feedback.textContent = `Not passed yet. You scored ${score}/5. Please review and try again.`;
     }
   }
-
-  if (score >= 4) {
-    feedback.textContent = `Passed. You scored ${score}/5.`;
-    setTimeout(() => { nextSlide(); }, 1000);
-  } else {
-    feedback.textContent = `Not passed yet. You scored ${score}/5. Please review and try again.`;
-  }
-}
 
   function submitAcknowledgement() {
     const box = document.getElementById('acknowledgeBox');
     const feedback = document.getElementById('ackFeedback');
 
     if (!box.checked) {
-      feedback.textContent = "Please tick the acknowledgement box before continuing.";
+      feedback.textContent = 'Please tick the acknowledgement box before continuing.';
       return;
     }
 
-    feedback.textContent = "Acknowledgement confirmed.";
+    feedback.textContent = 'Acknowledgement confirmed.';
     setTimeout(() => { nextSlide(); }, 1000);
   }
 
