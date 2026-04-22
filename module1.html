@@ -180,7 +180,9 @@
   </section>
 
   <!-- Slide 12: Knowledge Check -->
+
   <section class="slide" id="slide12">
+
     <h3>Knowledge Check</h3>
 
     <p><strong>Question 1:</strong> What is the church’s vision focused on?</p>
@@ -197,7 +199,7 @@
       <p><strong>Question 3:</strong> True or False: Our ministry practices and organisational processes should be Biblically based.</p>
       <label><input type="radio" name="q3" value="true"> True</label><br>
       <label><input type="radio" name="q3" value="false"> False</label><br>
-
+        
       <p><strong>Question 4:</strong> Which of the following is part of Harmonious Relationships?</p>
       <label><input type="radio" name="q4" value="a"> Pursuing unity and walking in love</label><br>
       <label><input type="radio" name="q4" value="b"> Working independently with little accountability</label><br>
@@ -208,46 +210,9 @@
       <label><input type="radio" name="q5" value="b"> Embracing sacrificial servanthood as a way of life</label><br>
       <label><input type="radio" name="q5" value="c"> Seeking recognition before responsibility</label><br>
 
-      <button type="button" onclick="submitQuiz()">Submit Knowledge Check</button>
+      <button type="button" onclick="submitKnowledgeCheck()">Submit Knowledge Check</button>
     </form>
-<script>
-function submitQuiz() {
-  let score = 0;
 
-  const answers = {
-    q1: "a",
-    q2: "b",
-    q3: "true",
-    q4: "a",
-    q5: "b"
-  };
-
-  // Check answers
-  for (let q in answers) {
-    let selected = document.querySelector(`input[name="${q}"]:checked`);
-    if (selected && selected.value === answers[q]) {
-      score++;
-    }
-  }
-
-  let feedback = document.getElementById("quizFeedback");
-  let nextBtn = document.getElementById("nextButtonContainer");
-
-  // Reset button visibility
-  nextBtn.style.display = "none";
-
-  if (score === 5) {
-    feedback.innerHTML = `<p><strong>Excellent!</strong> You scored ${score}/5.</p>`;
-    nextBtn.style.display = "block";
-
-  } else if (score >= 4) {
-    feedback.innerHTML = `<p><strong>Passed!</strong> You scored ${score}/5.</p>`;
-    nextBtn.style.display = "block";
-
-  } else {
-    feedback.innerHTML = `<p><strong>Not quite yet.</strong> You scored ${score}/5. Please review and try again.</p>`;
-  }
-}
     <div id="quizFeedback"></div>
     <p class="policy-ref"><strong>Referenced documents:</strong> Church Vision, Mission & Core Values</p>
   </section>
@@ -381,27 +346,6 @@ function submitQuiz() {
     }
   }
 
-  function submitQuiz(correctAnswers) {
-    const feedback = document.getElementById('quizFeedback');
-    let score = 0;
-
-    for (const [name, correctValue] of Object.entries(correctAnswers)) {
-      const selected = document.querySelector(`input[name="${name}"]:checked`);
-      if (!selected) {
-        feedback.textContent = "Please answer all questions before submitting.";
-        return;
-      }
-      if (selected.value === correctValue) score++;
-    }
-
-    if (score === Object.keys(correctAnswers).length) {
-      feedback.textContent = "Correct. You may continue.";
-      setTimeout(() => { nextSlide(); }, 1000);
-    } else {
-      feedback.textContent = "Some answers are incorrect. Please review the module and try again.";
-    }
-  }
-
   function submitAcknowledgement() {
     const box = document.getElementById('acknowledgeBox');
     const feedback = document.getElementById('ackFeedback');
@@ -414,7 +358,41 @@ function submitQuiz() {
     feedback.textContent = "Acknowledgement confirmed.";
     setTimeout(() => { nextSlide(); }, 1000);
   }
+  
+  function submitKnowledgeCheck() {
+    const feedback = document.getElementById('quizFeedback');
+    
+    const answers = {
+      q1: "a",
+      q2: "b",
+      q3: "true",
+      q4: "a",
+      q5: "b"
+    };
 
+    let score = 0;
+
+    for (const [name, correctValue] of Object.entries(answers)) {
+      const selected = document.querySelector(`input[name="${name}"]:checked`);
+
+      if (!selected) {
+        feedback.textContent = "Please answer all questions before submitting.";
+        return;
+      }
+
+      if (selected.value === correctValue) {
+        score++;
+      }
+    }
+
+    if (score >= 4) {
+      feedback.textContent = `Passed. You scored ${score}/5.`;
+      setTimeout(() => { nextSlide(); }, 1000);
+    } else {
+      feedback.textContent = `Not passed yet. You scored ${score}/5. Please review and try again.`;
+    }
+  }
+  
   window.addEventListener('load', checkRequiredModules);
 </script>
 
