@@ -394,10 +394,30 @@
     localStorage.setItem('progress', JSON.stringify(progress));
   }
 
-  function completeModule() {
-    saveProgress();
-    window.location.href = NEXT_MODULE;
+  async function completeModule() {
+  const email = localStorage.getItem('verifiedEmail');
+
+  if (email) {
+    try {
+      await fetch(WEB_APP_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({
+          action: 'markModuleComplete',
+          email: email,
+          moduleName: MODULE_SHEET_COLUMN
+        })
+      });
+    } catch (error) {
+      console.error('Could not save module progress to sheet:', error);
+    }
   }
+
+  saveProgress();
+  window.location.href = NEXT_MODULE;
+}
 
   function checkRequiredModules() {
     const progress = JSON.parse(localStorage.getItem('progress') || '{}');
