@@ -437,7 +437,7 @@
     }
 
     try {
-      const response = await fetch(WEB_APP_URL, {
+      const verifyResponse = await fetch(WEB_APP_URL, {
         method: 'POST',
         body: JSON.stringify({
           action: 'verifyCode',
@@ -449,20 +449,55 @@
         }
       });
 
-      const result = await response.json();
+      const verifyResult = await verifyResponse.json();
 
-      if (result.success) {
-        verifiedEmail = email;
-        loginFeedback.textContent = 'Email verified. You may continue.';
-        showForm();
+      if (!verifyResult.success) {
+        loginFeedback.textContent = verifyResult.message || 'Invalid code.';
+        return;
+      }
+
+      verifiedEmail = email;
+      loginFeedback.textContent = 'Code verified. Looking for your saved application...';
+
+      const formResponse = await fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'getFormByEmail',
+          email: email
+        }),
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        }
+      });
+
+      const formResult = await formResponse.json();
+      console.log('getFormByEmail result:', formResult);
+
+      if (formResult.success && formResult.found && formResult.data) {
+        populateForm(formResult.data);
+
+        if (form.elements['email']) {
+          form.elements['email'].value = email;
+        }
+
+        loginFeedback.textContent = 'Saved application loaded.';
+      } else if (formResult.success && !formResult.found) {
+        loginFeedback.textContent =
+          (formResult.message || 'No saved application found.') +
+          ' You can complete a new application.';
+
         if (form.elements['email']) {
           form.elements['email'].value = email;
         }
       } else {
-        loginFeedback.textContent = result.message || 'Invalid code.';
+        loginFeedback.textContent =
+          formResult.message || 'Could not load saved application.';
       }
+
+      showForm();
     } catch (error) {
-      loginFeedback.textContent = 'Error verifying code. Please try again.';
+      console.error(error);
+      loginFeedback.textContent = 'Error verifying code or loading application.';
     }
   }
 
@@ -525,6 +560,31 @@
       signatureName: formData.get('signatureName'),
       signatureTimestamp: currentTimestamp()
     };
+  }
+
+  function populateForm(data) {
+    for (const [key, value] of Object.entries(data)) {
+      const field = form.elements[key];
+
+      if (!field) continue;
+
+      if (field instanceof RadioNodeList) {
+        if (field.length && field[0] && field[0].type === 'checkbox') {
+          const values = Array.isArray(value) ? value : [];
+          for (const checkbox of field) {
+            checkbox.checked = values.includes(checkbox.value);
+          }
+        } else {
+          for (const radio of field) {
+            radio.checked = radio.value === String(value);
+          }
+        }
+      } else if (field.type === 'checkbox') {
+        field.checked = !!value;
+      } else {
+        field.value = value || '';
+      }
+    }
   }
 
   function escapeHtml(value) {
