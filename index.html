@@ -458,6 +458,7 @@
       }
 
       verifiedEmail = email;
+      localStorage.setItem('verifiedEmail', email);
       loginFeedback.textContent = 'Code verified. Looking for your saved application...';
 
       const formResponse = await fetch(WEB_APP_URL, {
