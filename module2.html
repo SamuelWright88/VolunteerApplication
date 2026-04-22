@@ -325,10 +325,8 @@
       <label><input type="radio" name="q5" value="b"> The church may require training, mentoring, removal from the role, or referral to authorities depending on the breach.</label><br>
       <label><input type="radio" name="q5" value="c"> The matter should always stay private and informal.</label><br>
 
-      <button type="button" onclick="submitQuiz()">Submit Knowledge Check</button>
-    </form>
-
-    <div id="quizFeedback"></div>
+      <button type="button" onclick="submitKnowledgeCheck()">Submit Knowledge Check</button>
+<div id="quizFeedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Code of Conduct; Child Safe Policy; Privacy Policy</p>
   </section>
 
@@ -483,26 +481,39 @@
     }
   }
 
-  function submitQuiz(correctAnswers) {
-    const feedback = document.getElementById('quizFeedback');
-    let score = 0;
+  function submitKnowledgeCheck() {
+  const feedback = document.getElementById('quizFeedback');
 
-    for (const [name, correctValue] of Object.entries(correctAnswers)) {
-      const selected = document.querySelector(`input[name="${name}"]:checked`);
-      if (!selected) {
-        feedback.textContent = "Please answer all questions before submitting.";
-        return;
-      }
-      if (selected.value === correctValue) score++;
+  const answers = {
+    q1: "a",
+    q2: "b",
+    q3: "true",
+    q4: "a",
+    q5: "b"
+  };
+
+  let score = 0;
+
+  for (const [name, correctValue] of Object.entries(answers)) {
+    const selected = document.querySelector(`input[name="${name}"]:checked`);
+
+    if (!selected) {
+      feedback.textContent = 'Please answer all questions before submitting.';
+      return;
     }
 
-    if (score === Object.keys(correctAnswers).length) {
-      feedback.textContent = "Correct. You may continue.";
-      setTimeout(() => { nextSlide(); }, 1000);
-    } else {
-      feedback.textContent = "Some answers are incorrect. Please review the module and try again.";
+    if (selected.value === correctValue) {
+      score++;
     }
   }
+
+  if (score >= 4) {
+    feedback.textContent = `Passed. You scored ${score}/5.`;
+    setTimeout(() => { nextSlide(); }, 1000);
+  } else {
+    feedback.textContent = `Not passed yet. You scored ${score}/5. Please review and try again.`;
+  }
+}
 
   function submitAcknowledgement() {
     const box = document.getElementById('acknowledgeBox');
