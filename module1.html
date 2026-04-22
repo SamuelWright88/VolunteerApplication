@@ -255,9 +255,11 @@
 </main>
 
 <script>
-  const MODULE_NAME = 'module1';
-  const NEXT_MODULE = 'module2.html';
-  const REQUIRED_PREVIOUS = [];
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
+const MODULE_NAME = 'module1';
+const MODULE_SHEET_COLUMN = 'Module 1 Complete';
+const NEXT_MODULE = 'module2.html';
+const REQUIRED_PREVIOUS = [];
 
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
@@ -278,28 +280,24 @@
   }
 
   async function completeModule() {
-  if (!localStorage.getItem('verifiedEmail')) {
-    saveProgress();
-    window.location.href = NEXT_MODULE;
-    return;
-  }
-
   const email = localStorage.getItem('verifiedEmail');
 
-  try {
-    await fetch(WEB_APP_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        action: 'markModuleComplete',
-        email: email,
-        moduleName: 'Module 1 Complete'
-      })
-    });
-  } catch (error) {
-    console.error('Could not save module progress to sheet', error);
+  if (email) {
+    try {
+      await fetch(WEB_APP_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({
+          action: 'markModuleComplete',
+          email: email,
+          moduleName: MODULE_SHEET_COLUMN
+        })
+      });
+    } catch (error) {
+      console.error('Could not save module progress to sheet:', error);
+    }
   }
 
   saveProgress();
