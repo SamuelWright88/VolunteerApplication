@@ -400,9 +400,12 @@
   }
 
   function goHome() {
-    saveSlideProgress();
-    window.location.href = HOME_PAGE;
-  }
+
+  saveSlideProgress();
+
+  window.location.href = HOME_PAGE + '?dashboard=true';
+
+}
 
   function saveSlideProgress() {
     localStorage.setItem(getModuleSlideKey(), String(currentSlide));
