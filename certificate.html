@@ -1,65 +1,496 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Family Church Volunteer Induction</title>
+  <title>Volunteer Induction Certificate</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #eee;
+      margin: 0;
+      color: #222;
+    }
+
+    .print-button {
+      display: block;
+      margin: 20px auto;
+      padding: 12px 20px;
+      font-size: 16px;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 20px auto;
+      background: white;
+      padding: 18mm;
+      box-sizing: border-box;
+      page-break-after: always;
+    }
+
+    .certificate {
+      border: 8px double #2c2c2c;
+      text-align: center;
+    }
+
+    .certificate-inner {
+      border: 2px solid #999;
+      min-height: 250mm;
+      padding: 20mm 14mm;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      max-width: 110px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 32px;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 25px;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .name {
+      font-size: 30px;
+      font-weight: bold;
+      border-bottom: 2px solid #333;
+      display: inline-block;
+      padding: 0 30px 8px;
+      margin: 25px 0;
+    }
+
+    .details {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-top: 25px;
+    }
+
+    .signature-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .signature {
+      width: 42%;
+      border-top: 1px solid #333;
+      padding-top: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #999;
+      padding: 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f2f2f2;
+    }
+
+    .section-title {
+      border-bottom: 2px solid #333;
+      padding-bottom: 6px;
+      margin-top: 28px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      margin-top: 16px;
+    }
+
+    .field {
+      border-bottom: 1px solid #aaa;
+      padding: 8px 0;
+      min-height: 34px;
+    }
+
+    .field strong {
+      display: block;
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 3px;
+    }
+
+    .notice {
+      background: #fff7d6;
+      border: 1px solid #e0c35a;
+      padding: 12px;
+      margin: 20px auto;
+      max-width: 210mm;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .print-button,
+      .notice {
+        display: none;
+      }
+
+      .page {
+        margin: 0;
+        width: 210mm;
+        min-height: 297mm;
+        box-shadow: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<header class="certificate-header">
-  <img src="images/logo.png" alt="First Steps logo" class="logo">
-  <div class="header-text">
+<button class="print-button" onclick="window.print()">Print Certificate Pack</button>
+
+<div id="loadNotice" class="notice">
+  Loading volunteer details...
+</div>
+
+<!-- PAGE 1: CERTIFICATE -->
+<section class="page certificate">
+  <div class="certificate-inner">
+    <img src="images/logo.png" alt="Church logo" class="logo">
+
     <h1>Certificate of Completion</h1>
+
+    <p class="subtitle">This certificate is presented to</p>
+
+    <div class="name" id="certificateName">Volunteer Name</div>
+
+    <p class="subtitle">for successfully completing the</p>
+
     <h2>Family Church Volunteer Induction</h2>
+
+    <div class="details">
+      <p>Including training in:</p>
+      <p>
+        Vision, Mission & Core Values<br>
+        Code of Conduct<br>
+        Child Safety<br>
+        Privacy & Screening
+      </p>
+
+      <p><strong>Date Completed:</strong> <span id="completionDate"></span></p>
+    </div>
+
+    <div class="signature-row">
+      <div class="signature">Pastor / Ministry Leader</div>
+      <div class="signature">Date</div>
+    </div>
   </div>
-</header>
+</section>
 
-<main>
-  <section class="slide active certificate-card">
-    <p class="certificate-intro">This certificate is proudly presented to</p>
+<!-- PAGE 2: TRANSCRIPT -->
+<section class="page">
+  <h1>Volunteer Training Transcript</h1>
 
-    <h3 id="certName" class="certificate-name">Staff Member</h3>
+  <p><strong>Volunteer Name:</strong> <span id="transcriptName"></span></p>
+  <p><strong>Email:</strong> <span id="transcriptEmail"></span></p>
+  <p><strong>Date Completed:</strong> <span id="transcriptDate"></span></p>
 
-    <p class="certificate-text">
-      for successfully completing the Family Church Volunteer Induction, including all required modules and final acknowledgement.
-    </p>
+  <h2 class="section-title">Completed Training Modules</h2>
 
-    <div class="content-box certificate-details">
-      <p><strong>Centre:</strong> <span id="certCentre"></span></p>
-      <p><strong>Position:</strong> <span id="certPosition"></span></p>
-      <p><strong>Email:</strong> <span id="certEmail"></span></p>
-      <p><strong>Date Completed:</strong> <span id="certDate"></span></p>
-    </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Module</th>
+        <th>Status</th>
+        <th>Completion Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Module 1 — Vision, Mission & Core Values</td>
+        <td id="module1Status">Completed</td>
+        <td id="module1Date"></td>
+      </tr>
+      <tr>
+        <td>Module 2 — Code of Conduct</td>
+        <td id="module2Status">Completed</td>
+        <td id="module2Date"></td>
+      </tr>
+      <tr>
+        <td>Module 3 — Child Safety</td>
+        <td id="module3Status">Completed</td>
+        <td id="module3Date"></td>
+      </tr>
+      <tr>
+        <td>Module 4 — Privacy & Screening</td>
+        <td id="module4Status">Completed</td>
+        <td id="module4Date"></td>
+      </tr>
+    </tbody>
+  </table>
 
-    <p class="certificate-footer-text">
-      Family Church acknowledges your commitment to safe, professional, and high-quality practice.
-    </p>
+  <h2 class="section-title">Volunteer Acknowledgement</h2>
+  <p>
+    The volunteer has completed the Family Church Volunteer Induction and has acknowledged
+    expectations relating to church values, code of conduct, child safety, privacy, screening
+    and volunteer responsibilities.
+  </p>
 
-    <div class="certificate-actions no-print">
-      <button type="button" onclick="window.print()">Print Certificate</button>
-      <button type="button" onclick="window.location.href='index.html'">Return to Home</button>
-    </div>
-  </section>
-</main>
+  <div class="signature-row">
+    <div class="signature">Received by Pastor / Leader</div>
+    <div class="signature">Date</div>
+  </div>
+</section>
+
+<!-- PAGE 3: PERSONAL DETAILS -->
+<section class="page">
+  <h1>Volunteer Personal Information Summary</h1>
+
+  <p>
+    This page is to be given to the pastor or ministry leader for church records.
+    The volunteer should keep the certificate page.
+  </p>
+
+  <h2 class="section-title">Personal Details</h2>
+
+  <div class="info-grid">
+    <div class="field"><strong>Full Name</strong><span id="infoName"></span></div>
+    <div class="field"><strong>Email</strong><span id="infoEmail"></span></div>
+    <div class="field"><strong>Phone</strong><span id="infoPhone"></span></div>
+    <div class="field"><strong>Church Attended</strong><span id="infoChurch"></span></div>
+    <div class="field"><strong>Date of Birth</strong><span id="infoDob"></span></div>
+    <div class="field"><strong>Gender</strong><span id="infoGender"></span></div>
+    <div class="field"><strong>Address</strong><span id="infoAddress"></span></div>
+    <div class="field"><strong>Volunteer Areas</strong><span id="infoAreas"></span></div>
+  </div>
+
+  <h2 class="section-title">Emergency Contact</h2>
+
+  <div class="info-grid">
+    <div class="field"><strong>Name</strong><span id="emergencyName"></span></div>
+    <div class="field"><strong>Relationship</strong><span id="emergencyRelationship"></span></div>
+    <div class="field"><strong>Phone</strong><span id="emergencyPhone"></span></div>
+    <div class="field"><strong>Willing to Help</strong><span id="emergencyWilling"></span></div>
+  </div>
+
+  <h2 class="section-title">Screening / Certificates</h2>
+
+  <div class="info-grid">
+    <div class="field"><strong>Blue Card</strong><span id="blueCard"></span></div>
+    <div class="field"><strong>Blue Card Number</strong><span id="blueCardNumber"></span></div>
+    <div class="field"><strong>Blue Card Expiry</strong><span id="blueCardExpiry"></span></div>
+    <div class="field"><strong>Child Safe Training</strong><span id="childSafeTraining"></span></div>
+    <div class="field"><strong>Child Safe Course</strong><span id="childSafeCourseName"></span></div>
+    <div class="field"><strong>Child Safe Date</strong><span id="childSafeDateAchieved"></span></div>
+    <div class="field"><strong>First Aid</strong><span id="firstAidTraining"></span></div>
+    <div class="field"><strong>First Aid Course</strong><span id="firstAidCourseName"></span></div>
+    <div class="field"><strong>First Aid Date</strong><span id="firstAidDateAchieved"></span></div>
+    <div class="field"><strong>Food Safety</strong><span id="foodSafetyTraining"></span></div>
+    <div class="field"><strong>Food Safety Course</strong><span id="foodSafetyCourseName"></span></div>
+    <div class="field"><strong>Food Safety Date</strong><span id="foodSafetyDateAchieved"></span></div>
+    <div class="field"><strong>Fire Training</strong><span id="fireTraining"></span></div>
+    <div class="field"><strong>Other Training</strong><span id="otherTraining"></span></div>
+  </div>
+
+  <h2 class="section-title">Agreement</h2>
+
+  <div class="info-grid">
+    <div class="field"><strong>Electronic Signature</strong><span id="signatureName"></span></div>
+    <div class="field"><strong>Signature Timestamp</strong><span id="signatureTimestamp"></span></div>
+  </div>
+
+  <div class="signature-row">
+    <div class="signature">Volunteer Signature</div>
+    <div class="signature">Pastor / Leader</div>
+  </div>
+</section>
 
 <script>
-  const userData = JSON.parse(localStorage.getItem('preInductionData')) || {};
-  const today = new Date();
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
 
-  function formatDate(date) {
-    return date.toLocaleDateString('en-AU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+  const today = new Date().toLocaleDateString('en-AU');
+
+  function setText(id, value) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = value || '';
+    }
+  }
+
+  function formatList(value) {
+    if (Array.isArray(value)) {
+      return value.join(', ');
+    }
+
+    if (typeof value === 'string') {
+      try {
+        const parsed = JSON.parse(value);
+        if (Array.isArray(parsed)) {
+          return parsed.join(', ');
+        }
+      } catch (error) {
+        return value;
+      }
+    }
+
+    return '';
+  }
+
+  function getFullName(data) {
+    const first = data.firstName || '';
+    const last = data.lastName || '';
+    return `${first} ${last}`.trim() || 'Volunteer Name';
+  }
+
+  function getProgressKey(email) {
+    return email
+      ? `churchVolunteerProgress_${email}`
+      : 'churchVolunteerProgress';
+  }
+
+  function loadLocalProgress(email) {
+    const saved = localStorage.getItem(getProgressKey(email));
+
+    if (!saved) {
+      return { completedModules: [] };
+    }
+
+    try {
+      return JSON.parse(saved);
+    } catch (error) {
+      return { completedModules: [] };
+    }
+  }
+
+  function fillTranscript(email) {
+    const progress = loadLocalProgress(email);
+    const completed = progress.completedModules || [];
+
+    const modules = [
+      { id: 'module1', statusId: 'module1Status', dateId: 'module1Date' },
+      { id: 'module2', statusId: 'module2Status', dateId: 'module2Date' },
+      { id: 'module3', statusId: 'module3Status', dateId: 'module3Date' },
+      { id: 'module4', statusId: 'module4Status', dateId: 'module4Date' }
+    ];
+
+    modules.forEach(module => {
+      const isComplete = completed.includes(module.id);
+
+      setText(module.statusId, isComplete ? 'Completed' : 'Not recorded locally');
+      setText(module.dateId, isComplete ? today : '');
     });
   }
 
-  document.getElementById('certName').textContent = userData.fullName || 'Staff Member';
-  document.getElementById('certCentre').textContent = userData.centre || '';
-  document.getElementById('certPosition').textContent = userData.position || '';
-  document.getElementById('certEmail').textContent = userData.email || '';
-  document.getElementById('certDate').textContent = formatDate(today);
+  function fillCertificate(data, email) {
+    const fullName = getFullName(data);
+
+    setText('certificateName', fullName);
+    setText('completionDate', today);
+
+    setText('transcriptName', fullName);
+    setText('transcriptEmail', email);
+    setText('transcriptDate', today);
+
+    setText('infoName', fullName);
+    setText('infoEmail', email || data.email);
+    setText('infoPhone', data.phone);
+    setText('infoChurch', data.churchAttended);
+    setText('infoDob', data.dateOfBirth);
+    setText('infoGender', data.gender);
+    setText('infoAddress', data.address);
+    setText('infoAreas', formatList(data.volunteerAreas));
+
+    setText('emergencyName', data.emergencyName);
+    setText('emergencyRelationship', data.emergencyRelationship);
+    setText('emergencyPhone', data.emergencyPhone);
+    setText('emergencyWilling', data.emergencyWilling);
+
+    setText('blueCard', data.blueCard);
+    setText('blueCardNumber', data.blueCardNumber);
+    setText('blueCardExpiry', data.blueCardExpiry);
+
+    setText('childSafeTraining', data.childSafeTraining);
+    setText('childSafeCourseName', data.childSafeCourseName);
+    setText('childSafeDateAchieved', data.childSafeDateAchieved);
+
+    setText('firstAidTraining', data.firstAidTraining);
+    setText('firstAidCourseName', data.firstAidCourseName);
+    setText('firstAidDateAchieved', data.firstAidDateAchieved);
+
+    setText('foodSafetyTraining', data.foodSafetyTraining);
+    setText('foodSafetyCourseName', data.foodSafetyCourseName);
+    setText('foodSafetyDateAchieved', data.foodSafetyDateAchieved);
+
+    setText('fireTraining', data.fireTraining);
+    setText('otherTraining', data.otherTraining);
+
+    setText('signatureName', data.signatureName);
+    setText('signatureTimestamp', data.signatureTimestamp);
+
+    fillTranscript(email);
+  }
+
+  async function loadVolunteerDetails() {
+    const notice = document.getElementById('loadNotice');
+    const email = localStorage.getItem('verifiedEmail') || '';
+
+    if (!email) {
+      notice.textContent = 'No verified email found. Please return to the dashboard and verify your email first.';
+      fillTranscript('');
+      return;
+    }
+
+    try {
+      const response = await fetch(WEB_APP_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+          action: 'getFormByEmail',
+          email: email
+        }),
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        }
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.found && result.data) {
+        fillCertificate(result.data, email);
+        notice.textContent = 'Volunteer details loaded. You can now print the certificate pack.';
+      } else {
+        notice.textContent = result.message || 'No saved volunteer application found for this email.';
+        fillCertificate({ email: email }, email);
+      }
+    } catch (error) {
+      console.error(error);
+      notice.textContent = 'Could not load volunteer details from the Google Sheet. Check the Apps Script deployment and try again.';
+      fillCertificate({ email: email }, email);
+    }
+  }
+
+  window.addEventListener('load', loadVolunteerDetails);
 </script>
 
 </body>
