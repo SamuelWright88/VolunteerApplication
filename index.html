@@ -861,9 +861,7 @@ console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
 
           form.elements['email'].value = email;
 
-        }
-
-        markModuleComplete('application');
+        }.
 
         loginFeedback.textContent = 'Saved application loaded.';
 
@@ -931,7 +929,7 @@ console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
 
       phone: formData.get('phone'),
 
-      email: verifiedEmail || formData.get('email'),
+      email: verifiedEmail || localStorage.getItem('verifiedEmail') || formData.get('email'),
 
       dateOfBirth: formData.get('dateOfBirth'),
 
@@ -1061,7 +1059,7 @@ console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
 
   function escapeHtml(value) {
 
-    return String(value || '')
+    return String(value || '').
 
       .replaceAll('&', '&amp;')
 
@@ -1141,13 +1139,16 @@ console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
 
     event.preventDefault();
 
-    if (!verifiedEmail) {
+const savedEmail = localStorage.getItem('verifiedEmail');
 
-      feedback.textContent = 'Please verify your email before submitting the form.';
+if (!verifiedEmail && savedEmail) {
+  verifiedEmail = savedEmail;
+}
 
-      return;
-
-    }
+if (!verifiedEmail) {
+  feedback.textContent = 'Please verify your email before submitting the form.';
+  return;
+}
 
     const data = collectFormData();
 
