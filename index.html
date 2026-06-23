@@ -475,6 +475,8 @@
 
 <script>
 
+console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
+
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
 
   const form = document.getElementById('volunteerApplicationForm');
@@ -1216,7 +1218,7 @@ window.addEventListener('load', function () {
     showDashboard();
   }
 });
-console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
+
 </script>
 
 </body>
