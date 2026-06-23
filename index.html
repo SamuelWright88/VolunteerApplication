@@ -1201,22 +1201,20 @@ console.log('Saved Email:', localStorage.getItem('verifiedEmail'));
 
   });
   
-  window.addEventListener('load', function () {
-  const verifiedEmail = localStorage.getItem('verifiedEmail');
-  const params = new URLSearchParams(window.location.search);
-
-  if (verifiedEmail && params.get('dashboard') === 'true') {
-    showDashboard();
-  }
-});
 window.addEventListener('load', function () {
+
   const savedEmail = localStorage.getItem('verifiedEmail');
+
+  if (savedEmail) {
+    verifiedEmail = savedEmail;
+  }
+
   const params = new URLSearchParams(window.location.search);
 
   if (savedEmail && params.get('dashboard') === 'true') {
-    verifiedEmail = savedEmail;
     showDashboard();
   }
+
 });
 
 </script>
