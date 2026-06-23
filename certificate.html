@@ -25,15 +25,16 @@
       font-size: 16px;
     }
 
-    .page {
-      width: 210mm;
-      min-height: 297mm;
-      margin: 20px auto;
-      background: white;
-      padding: 18mm;
-      box-sizing: border-box;
-      page-break-after: always;
-    }
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 20px auto;
+  background: white;
+  padding: 14mm;
+  box-sizing: border-box;
+  page-break-after: always;
+  break-after: page;
+}.
 
     .certificate {
       border: 8px double #2c2c2c;
@@ -146,6 +147,38 @@
       margin: 20px auto;
       max-width: 210mm;
     }
+    
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html, body {
+    width: 210mm;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    margin: 0;
+    padding: 14mm;
+    box-shadow: none;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .print-button,
+  .notice {
+    display: none;
+  }
+}
 
     @media print {
       body {
@@ -264,7 +297,7 @@
   </div>
 </section>
 
-<!-- PAGE 3: PERSONAL DETAILS -->
+<!-- PAGE 3: PERSONAL DETAILS PART 1 -->
 <section class="page">
   <h1>Volunteer Personal Information Summary</h1>
 
@@ -295,6 +328,21 @@
     <div class="field"><strong>Willing to Help</strong><span id="emergencyWilling"></span></div>
   </div>
 
+  <h2 class="section-title">Christian Background</h2>
+
+  <div class="info-grid">
+    <div class="field"><strong>Served Another Church</strong><span id="servedAnotherChurch"></span></div>
+    <div class="field"><strong>Last Church Served</strong><span id="lastChurchServed"></span></div>
+    <div class="field"><strong>Committed to Jesus</strong><span id="committedToJesus"></span></div>
+    <div class="field"><strong>Year Saved</strong><span id="yearSaved"></span></div>
+  </div>
+</section>
+
+<!-- PAGE 4: PERSONAL DETAILS PART 2 -->
+<section class="page">
+  <h1>Volunteer Personal Information Summary</h1>
+  <h2>Screening, Certificates & Agreement</h2>
+
   <h2 class="section-title">Screening / Certificates</h2>
 
   <div class="info-grid">
@@ -311,6 +359,8 @@
     <div class="field"><strong>Food Safety Course</strong><span id="foodSafetyCourseName"></span></div>
     <div class="field"><strong>Food Safety Date</strong><span id="foodSafetyDateAchieved"></span></div>
     <div class="field"><strong>Fire Training</strong><span id="fireTraining"></span></div>
+    <div class="field"><strong>Fire Course</strong><span id="fireCourseName"></span></div>
+    <div class="field"><strong>Fire Date</strong><span id="fireDateAchieved"></span></div>
     <div class="field"><strong>Other Training</strong><span id="otherTraining"></span></div>
   </div>
 
@@ -325,7 +375,7 @@
     <div class="signature">Volunteer Signature</div>
     <div class="signature">Pastor / Leader</div>
   </div>
-</section>
+</section>.
 
 <script>
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
@@ -406,7 +456,7 @@
   function fillCertificate(data, email) {
     const fullName = getFullName(data);
 
-    setText('certificateName', fullName);
+    =setText('certificateName', fullName);
     setText('completionDate', today);
 
     setText('transcriptName', fullName);
@@ -448,7 +498,13 @@
 
     setText('signatureName', data.signatureName);
     setText('signatureTimestamp', data.signatureTimestamp);
+setText('servedAnotherChurch', data.servedAnotherChurch);
+setText('lastChurchServed', data.lastChurchServed);
+setText('committedToJesus', data.committedToJesus);
+setText('yearSaved', data.yearSaved);
 
+setText('fireCourseName', data.fireCourseName);
+setText('fireDateAchieved', data.fireDateAchieved);
     fillTranscript(email);
   }
 
