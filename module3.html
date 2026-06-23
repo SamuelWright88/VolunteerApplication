@@ -13,8 +13,47 @@
     ul, ol { margin-top: 10px; }
     .content-box { background: #f9f9f9; border: 1px solid #ddd; padding: 15px; margin-top: 15px; }
     .policy-ref { margin-top: 20px; font-size: 0.95em; color: #444; }
+
+    .module-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 15px 0 20px;
+    }
+
+    .progress-wrap {
+      margin: 15px 0 20px;
+    }
+
+    .progress-label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 14px;
+      background: #e6e6e6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    #moduleProgressFill {
+      height: 100%;
+      width: 0%;
+      background: #444;
+      transition: width 0.3s ease;
+    }
+
+    .slide-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
   </style>
 </head>
+
 <body>
 
 <header>
@@ -22,9 +61,22 @@
   <h2>Module 3: Child Safety</h2>
 </header>
 
+<div class="module-nav">
+  <button type="button" onclick="previousSlide()">Back</button>
+  <button type="button" onclick="goHome()">Home</button>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span id="moduleProgressText">Module Progress: 0%</span>
+  </div>
+  <div class="progress-bar">
+    <div id="moduleProgressFill"></div>
+  </div>
+</div>
+
 <main>
 
-  <!-- Slide 1 -->
   <section class="slide active" id="slide1">
     <h3>Welcome to Child Safety</h3>
     <p>This module explains how Family Church seeks to create a child safe and child friendly culture where children and young people are respected, valued and protected from harm.</p>
@@ -37,10 +89,13 @@
     </ul>
     <p>Child safety is not only a policy requirement. It is part of the culture, leadership and daily practice of the church.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 2 -->
   <section class="slide" id="slide2">
     <h3>Our Child Safety Commitment</h3>
     <p>As a child safe organisation, Cairns Family Church commits to creating a child safe and child friendly culture and environment where all children and young people are respected, valued and encouraged to reach their full potential.</p>
@@ -52,10 +107,13 @@
     </ul>
     <p>Child safety is everyone’s responsibility.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 3 -->
   <section class="slide" id="slide3">
     <h3>Leadership, Governance and Culture</h3>
     <p>The Child Safe Policy states that child safety and wellbeing must be embedded in organisational leadership, governance and culture.</p>
@@ -67,10 +125,13 @@
     </ul>
     <p>Volunteers help build this culture through everyday decisions and conduct.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 4 -->
   <section class="slide" id="slide4">
     <h3>Children’s Rights and Participation</h3>
     <p>Children and young people should be informed, heard and taken seriously.</p>
@@ -82,10 +143,13 @@
     </ul>
     <p>A safe church is one where children know they matter and know how to speak up.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 5 -->
   <section class="slide" id="slide5">
     <h3>Families and Community Matter</h3>
     <p>Child safety includes partnership with families and the wider community.</p>
@@ -97,10 +161,13 @@
     </ul>
     <p>Good communication supports protection, trust and accountability.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 6 -->
   <section class="slide" id="slide6">
     <h3>Equity, Inclusion and Diverse Needs</h3>
     <p>The church commits to anticipating children’s diverse circumstances and responding effectively to those with additional vulnerabilities.</p>
@@ -112,10 +179,13 @@
     </ul>
     <p>Child safety includes cultural safety, accessibility and inclusion.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 7 -->
   <section class="slide" id="slide7">
     <h3>Suitable People and Safe Recruitment</h3>
     <p>People working with children must be suitable and supported.</p>
@@ -127,10 +197,13 @@
     </ul>
     <p>Suitability is not assumed. It is actively assessed and maintained.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Screening Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 8 -->
   <section class="slide" id="slide8">
     <h3>Training and Awareness</h3>
     <p>Child safety requires ongoing education and training.</p>
@@ -142,10 +215,13 @@
     </ul>
     <p>Training is part of keeping people alert, informed and accountable.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Screening Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 9 -->
   <section class="slide" id="slide9">
     <h3>Safe Physical and Online Environments</h3>
     <p>Child safety includes the environments where ministry takes place.</p>
@@ -157,10 +233,13 @@
     </ul>
     <p>Being welcoming is not enough. Environments must also be actively safe.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 10 -->
   <section class="slide" id="slide10">
     <h3>Responding to Concerns and Complaints</h3>
     <p>The policy requires processes that are child focused and accessible.</p>
@@ -172,10 +251,13 @@
     </ul>
     <p>Children need processes that are safe, understandable and responsive.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Privacy Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 11 -->
   <section class="slide" id="slide11">
     <h3>When Harm Is Suspected or Disclosed</h3>
     <p>If there is a reasonable suspicion of abuse, harm or risk of harm, action must be taken.</p>
@@ -191,10 +273,13 @@
       Child protection is everyone’s responsibility.
     </div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 12 -->
   <section class="slide" id="slide12">
     <h3>Queensland Reporting Expectations</h3>
     <p>The policy highlights important Queensland reporting obligations.</p>
@@ -205,10 +290,13 @@
     </ul>
     <p>This means volunteers must take child safety concerns seriously and escalate them promptly through the correct channels.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 13 -->
   <section class="slide" id="slide13">
     <h3>Known Offenders and Persons of Concern</h3>
     <p>The policy recognises that child safety also includes managing risk from known offenders and persons of concern.</p>
@@ -220,10 +308,13 @@
     </ul>
     <p>This area is handled through senior leadership and board oversight, not informal volunteer decisions.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Screening Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 14 -->
   <section class="slide" id="slide14">
     <h3>Review and Continuous Improvement</h3>
     <p>Child safety is not static. The policy requires regular review and improvement.</p>
@@ -235,10 +326,13 @@
     </ul>
     <p>Safe organisations keep learning and improving.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 15 -->
   <section class="slide" id="slide15">
     <h3>Scenario 1: Disclosure</h3>
     <p>A child tells you that someone has hurt them and asks you not to tell anyone.</p>
@@ -253,9 +347,12 @@
 
     <div id="scenario1Feedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+    </div>
   </section>
 
-  <!-- Slide 16 -->
   <section class="slide" id="slide16">
     <h3>Scenario 2: Suitability</h3>
     <p>A new adult volunteer wants to help in a children’s program but has not yet completed the required screening and Blue Card process.</p>
@@ -270,9 +367,12 @@
 
     <div id="scenario2Feedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Screening Policy</p>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+    </div>
   </section>
 
-  <!-- Slide 17 -->
   <section class="slide" id="slide17">
     <h3>Scenario 3: Child Safety Concern</h3>
     <p>You notice a child appearing distressed, fearful and reluctant to go home. You do not have proof that anything is wrong.</p>
@@ -287,9 +387,12 @@
 
     <div id="scenario3Feedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct</p>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+    </div>
   </section>
 
-  <!-- Slide 18 -->
   <section class="slide" id="slide18">
     <h3>Key Takeaways</h3>
     <ul>
@@ -303,10 +406,13 @@
     </ul>
     <p>Child safety is proactive, practical and shared.</p>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct; Screening Policy</p>
-    <button type="button" onclick="nextSlide()">Next</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="nextSlide()">Next</button>
+    </div>
   </section>
 
-  <!-- Slide 19 -->
   <section class="slide" id="slide19">
     <h3>Knowledge Check</h3>
 
@@ -340,9 +446,12 @@
 
     <div id="quizFeedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct; Screening Policy</p>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+    </div>
   </section>
 
-  <!-- Slide 20 -->
   <section class="slide" id="slide20">
     <h3>Acknowledgement</h3>
     <p>By completing this module, you acknowledge that you:</p>
@@ -361,9 +470,12 @@
 
     <div id="ackFeedback"></div>
     <p class="policy-ref"><strong>Referenced policies:</strong> Child Safe Policy; Code of Conduct; Screening Policy</p>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+    </div>
   </section>
 
-  <!-- Slide 21 -->
   <section class="slide" id="slide21">
     <h3>Module Completion</h3>
     <p>You have now completed Module 3: Child Safety.</p>
@@ -375,59 +487,179 @@
       <li>how to respond to concerns, complaints and possible harm</li>
     </ul>
     <p>You are now ready to continue to Module 4: Privacy and Screening.</p>
-    <button type="button" onclick="completeModule()">Start Module 4</button>
+
+    <div class="slide-buttons">
+      <button type="button" onclick="previousSlide()">Back</button>
+      <button type="button" onclick="completeModule()">Start Module 4</button>
+      <button type="button" onclick="completeModuleAndGoHome()">Complete and Return Home</button>
+    </div>
   </section>
 
 </main>
 
 <script>
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
+
   const MODULE_NAME = 'module3';
   const MODULE_SHEET_COLUMN = 'Module 3 Complete';
   const NEXT_MODULE = 'module4.html';
+  const HOME_PAGE = 'index.html';
   const REQUIRED_PREVIOUS = ['module2'];
 
   let currentSlide = 0;
   const slides = document.querySelectorAll('.slide');
 
+  function getEmail() {
+    return localStorage.getItem('verifiedEmail') || '';
+  }
+
+  function getModuleSlideKey() {
+    const email = getEmail();
+    return email ? `churchVolunteerSlide_${email}_${MODULE_NAME}` : `churchVolunteerSlide_${MODULE_NAME}`;
+  }
+
+  function getDashboardProgressKey() {
+    const email = getEmail();
+    return email ? `churchVolunteerProgress_${email}` : 'churchVolunteerProgress';
+  }
+
+  function showSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+
+    saveSlideProgress();
+    updateProgressBar();
+
+    window.scrollTo(0, 0);
+  }
+
   function nextSlide() {
     if (currentSlide < slides.length - 1) {
-      slides[currentSlide].classList.remove('active');
-      currentSlide++;
-      slides[currentSlide].classList.add('active');
-      window.scrollTo(0, 0);
+      showSlide(currentSlide + 1);
     }
   }
 
-  function saveProgress() {
+  function previousSlide() {
+    if (currentSlide > 0) {
+      showSlide(currentSlide - 1);
+    } else {
+      goHome();
+    }
+  }
+
+  function goHome() {
+    saveSlideProgress();
+    window.location.href = HOME_PAGE + '?dashboard=true';
+  }
+
+  function saveSlideProgress() {
+    localStorage.setItem(getModuleSlideKey(), String(currentSlide));
+  }
+
+  function restoreSlideProgress() {
+    const savedSlide = localStorage.getItem(getModuleSlideKey());
+
+    if (savedSlide !== null && !isNaN(savedSlide)) {
+      const savedIndex = Number(savedSlide);
+
+      if (savedIndex >= 0 && savedIndex < slides.length) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = savedIndex;
+        slides[currentSlide].classList.add('active');
+      }
+    }
+
+    updateProgressBar();
+  }
+
+  function updateProgressBar() {
+    const progressText = document.getElementById('moduleProgressText');
+    const progressFill = document.getElementById('moduleProgressFill');
+
+    if (!progressText || !progressFill) return;
+
+    const percent = Math.round(((currentSlide + 1) / slides.length) * 100);
+
+    progressText.textContent = `Module Progress: ${percent}%`;
+    progressFill.style.width = `${percent}%`;
+  }
+
+  function saveLegacyProgress() {
     const progress = JSON.parse(localStorage.getItem('progress') || '{}');
     progress[MODULE_NAME] = true;
     localStorage.setItem('progress', JSON.stringify(progress));
   }
 
-  async function completeModule() {
-    const email = localStorage.getItem('verifiedEmail');
+  function saveDashboardProgress() {
+    const progressKey = getDashboardProgressKey();
+    const saved = localStorage.getItem(progressKey);
 
-    if (email) {
+    let progress = {
+      completedModules: []
+    };
+
+    if (saved) {
       try {
-        await fetch(WEB_APP_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
-          body: JSON.stringify({
-            action: 'markModuleComplete',
-            email: email,
-            moduleName: MODULE_SHEET_COLUMN
-          })
-        });
+        progress = JSON.parse(saved);
       } catch (error) {
-        console.error('Could not save module progress to sheet:', error);
+        progress = {
+          completedModules: []
+        };
       }
     }
 
-    saveProgress();
+    if (!Array.isArray(progress.completedModules)) {
+      progress.completedModules = [];
+    }
+
+    if (!progress.completedModules.includes(MODULE_NAME)) {
+      progress.completedModules.push(MODULE_NAME);
+    }
+
+    localStorage.setItem(progressKey, JSON.stringify(progress));
+  }
+
+  async function saveSheetProgress() {
+    const email = getEmail();
+
+    if (!email) return;
+
+    try {
+      await fetch(WEB_APP_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({
+          action: 'markModuleComplete',
+          email: email,
+          moduleName: MODULE_SHEET_COLUMN
+        })
+      });
+    } catch (error) {
+      console.error('Could not save module progress to sheet:', error);
+    }
+  }
+
+  async function completeModule() {
+    saveLegacyProgress();
+    saveDashboardProgress();
+    await saveSheetProgress();
+
+    localStorage.removeItem(getModuleSlideKey());
+
     window.location.href = NEXT_MODULE;
+  }
+
+  async function completeModuleAndGoHome() {
+    saveLegacyProgress();
+    saveDashboardProgress();
+    await saveSheetProgress();
+
+    localStorage.removeItem(getModuleSlideKey());
+
+    window.location.href = HOME_PAGE + '?dashboard=true';
   }
 
   function checkRequiredModules() {
@@ -440,6 +672,7 @@
         return false;
       }
     }
+
     return true;
   }
 
@@ -541,7 +774,11 @@
     setTimeout(() => { nextSlide(); }, 1000);
   }
 
-  window.addEventListener('load', checkRequiredModules);
+  window.addEventListener('load', function () {
+    if (checkRequiredModules()) {
+      restoreSlideProgress();
+    }
+  });
 </script>
 
 </body>
