@@ -1,55 +1,142 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
+
   <title>Family Church Volunteer Application Form</title>
+
   <link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
 
 <header>
+
   <img src="images/logo.png" alt="Church logo" class="logo">
+
   <div class="header-text">
+
     <h1>Family Church Volunteer Application Form</h1>
+
     <h2>Welcome to our volunteer application process</h2>
+
   </div>
+
 </header>
 
 <main id="maincontent">
 
 <section id="loginSection" class="slide active">
+
   <h3>Start Your Application</h3>
+
   <p>Enter your email address to receive a one-time verification code.</p>
 
   <label>
+
     Email Address<br>
+
     <input type="email" id="userEmail" required>
+
   </label><br><br>
 
   <button type="button" onclick="requestCode()">Send Code</button>
 
   <div id="codeSection" style="display:none; margin-top:20px;">
+
     <label>
+
       Enter Verification Code<br>
+
       <input type="text" id="verificationCode" maxlength="6">
+
     </label><br><br>
 
     <button type="button" onclick="verifyCode()">Verify Code</button>
+
   </div>
 
   <div id="loginFeedback" class="feedback-box" aria-live="polite"></div>
+
 </section>
 
-  <section class="slide" id="applicationFormSection">
-    <h3>Volunteer Application Form</h3>
-    <p>
-      Thank you for your willingness to serve our community on one of our teams.
-      This form is for community members of Cairns Family Church and affiliated churches
-      who desire to volunteer in the services and programs that we run.
-      Please set aside some time to fill out this form so that we can get to know you more.
-    </p>
+<section class="slide" id="dashboardSection">
 
-    <form id="volunteerApplicationForm">
+  <h3>Volunteer Training Dashboard</h3>
+
+  <p>Select where you would like to continue.</p>
+
+  <div class="progress-wrap">
+
+    <div class="progress-label">
+
+      <span id="courseProgressText">Course Progress: 0%</span>
+
+    </div>
+
+    <div class="progress-bar">
+
+      <div id="courseProgressFill"></div>
+
+    </div>
+
+  </div>
+
+  <div id="moduleCards" class="module-card-grid"></div>
+
+  <div id="certificateBox" class="content-box" style="display:none;">
+
+    <h4>Training Complete</h4>
+
+    <p>You have completed all modules.</p>
+
+    <button type="button" onclick="window.location.href='certificate.html'">View Certificate</button>
+
+  </div>
+
+</section>
+
+<section class="slide" id="applicationFormSection">
+
+  <h3>Volunteer Application Form</h3>
+
+  <p>
+
+    Thank you for your willingness to serve our community on one of our teams.
+
+    This form is for community members of Cairns Family Church and affiliated churches
+
+    who desire to volunteer in the services and programs that we run.
+
+    Please set aside some time to fill out this form so that we can get to know you more.
+
+  </p>
+
+  <div class="progress-wrap">
+
+    <div class="progress-label">
+
+      <span>Application Progress</span>
+
+    </div>
+
+    <div class="progress-bar">
+
+      <div style="width:25%;"></div>
+
+    </div>
+
+  </div>
+
+  <button type="button" onclick="showDashboard()">Back to Dashboard</button>
+
+  <br><br>
+
+  <form id="volunteerApplicationForm">
 
       <h4>Section 1 of 5 — Personal Details</h4>
 
@@ -364,318 +451,756 @@
       </label><br><br>
 
       <button type="submit">Save and Continue</button>
-    </form>
+  </form>
 
-    <div id="formFeedback" class="feedback-box" aria-live="polite"></div>
-  </section>
+  <div id="formFeedback" class="feedback-box" aria-live="polite"></div>
 
-  <section class="slide" id="printSummarySection">
-    <h3>Volunteer Application Summary</h3>
-    <div class="content-box" id="printSummaryContent"></div>
+</section>
 
-    <button type="button" onclick="window.print()">Print Record</button>
-    <button type="button" onclick="editApplication()">Edit Application</button>
-    <button type="button" onclick="window.location.href='module1.html'">Start Module 1</button>
-  </section>
+<section class="slide" id="printSummarySection">
+
+  <h3>Volunteer Application Summary</h3>
+
+  <div class="content-box" id="printSummaryContent"></div>
+
+  <button type="button" onclick="window.print()">Print Record</button>
+
+  <button type="button" onclick="editApplication()">Edit Application</button>
+
+  <button type="button" onclick="markApplicationComplete()">Continue to Dashboard</button>
+
+</section>
 
 </main>
 
 <script>
+
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwa0Q7urQ9codqpru3fUQgKVXEpRvwS7CeDWQYfD4jH2tdY1fqJ-520Yn2fDQ5hTglR/exec';
 
   const form = document.getElementById('volunteerApplicationForm');
+
   const feedback = document.getElementById('formFeedback');
+
   const loginSection = document.getElementById('loginSection');
+
   const formSection = document.getElementById('applicationFormSection');
+
   const summarySection = document.getElementById('printSummarySection');
+
+  const dashboardSection = document.getElementById('dashboardSection');
+
   const summaryContent = document.getElementById('printSummaryContent');
 
   let verifiedEmail = '';
 
-  async function requestCode() {
-    const email = document.getElementById('userEmail').value.trim();
-    const loginFeedback = document.getElementById('loginFeedback');
+  const modules = [
 
-    if (!email) {
-      loginFeedback.textContent = 'Please enter your email address.';
-      return;
+    {
+
+      id: 'application',
+
+      title: 'Volunteer Application',
+
+      url: '#application',
+
+      required: true
+
+    },
+
+    {
+
+      id: 'module1',
+
+      title: 'Module 1 — Vision, Mission & Core Values',
+
+      url: 'module1.html',
+
+      required: true
+
+    },
+
+    {
+
+      id: 'module2',
+
+      title: 'Module 2 — Code of Conduct',
+
+      url: 'module2.html',
+
+      required: true
+
+    },
+
+    {
+
+      id: 'module3',
+
+      title: 'Module 3 — Child Safety',
+
+      url: 'module3.html',
+
+      required: true
+
+    },
+
+    {
+
+      id: 'module4',
+
+      title: 'Module 4 — Privacy, Screening & Volunteer Responsibilities',
+
+      url: 'module4.html',
+
+      required: true
+
+    }
+
+  ];
+
+  function getProgressKey() {
+
+    return verifiedEmail
+
+      ? `churchVolunteerProgress_${verifiedEmail}`
+
+      : 'churchVolunteerProgress';
+
+  }
+
+  function loadProgress() {
+
+    const saved = localStorage.getItem(getProgressKey());
+
+    if (!saved) {
+
+      return {
+
+        completedModules: []
+
+      };
+
     }
 
     try {
+
+      return JSON.parse(saved);
+
+    } catch (error) {
+
+      return {
+
+        completedModules: []
+
+      };
+
+    }
+
+  }
+
+  function saveProgress(progress) {
+
+    localStorage.setItem(getProgressKey(), JSON.stringify(progress));
+
+  }
+
+  function markModuleComplete(moduleId) {
+
+    const progress = loadProgress();
+
+    if (!progress.completedModules.includes(moduleId)) {
+
+      progress.completedModules.push(moduleId);
+
+    }
+
+    saveProgress(progress);
+
+  }
+
+  function markApplicationComplete() {
+
+    markModuleComplete('application');
+
+    showDashboard();
+
+  }
+
+  function showOnly(sectionToShow) {
+
+    loginSection.classList.remove('active');
+
+    formSection.classList.remove('active');
+
+    summarySection.classList.remove('active');
+
+    dashboardSection.classList.remove('active');
+
+    sectionToShow.classList.add('active');
+
+  }
+
+  function showDashboard() {
+
+    loadDashboard();
+
+    showOnly(dashboardSection);
+
+  }
+
+  function loadDashboard() {
+
+    const progress = loadProgress();
+
+    const completedModules = progress.completedModules || [];
+
+    const moduleCards = document.getElementById('moduleCards');
+
+    moduleCards.innerHTML = '';
+
+    modules.forEach(module => {
+
+      const completed = completedModules.includes(module.id);
+
+      moduleCards.innerHTML += `
+
+        <div class="module-card ${completed ? 'completed' : ''}">
+
+          <h4>${module.title}</h4>
+
+          <p>${completed ? 'Completed' : 'Not completed'}</p>
+
+          <button type="button" onclick="openModule('${module.id}', '${module.url}')">
+
+            ${completed ? 'Review Module' : 'Start Module'}
+
+          </button>
+
+        </div>
+
+      `;
+
+    });
+
+    const percent = Math.round((completedModules.length / modules.length) * 100);
+
+    document.getElementById('courseProgressText').textContent = `Course Progress: ${percent}%`;
+
+    document.getElementById('courseProgressFill').style.width = `${percent}%`;
+
+    const certificateBox = document.getElementById('certificateBox');
+
+    if (completedModules.length >= modules.length) {
+
+      certificateBox.style.display = 'block';
+
+    } else {
+
+      certificateBox.style.display = 'none';
+
+    }
+
+  }
+
+  function openModule(moduleId, url) {
+
+    if (moduleId === 'application') {
+
+      showForm();
+
+      return;
+
+    }
+
+    window.location.href = url;
+
+  }
+
+  async function requestCode() {
+
+    const email = document.getElementById('userEmail').value.trim();
+
+    const loginFeedback = document.getElementById('loginFeedback');
+
+    if (!email) {
+
+      loginFeedback.textContent = 'Please enter your email address.';
+
+      return;
+
+    }
+
+    try {
+
       const response = await fetch(WEB_APP_URL, {
+
         method: 'POST',
+
         body: JSON.stringify({
+
           action: 'sendCode',
+
           email: email
+
         }),
+
         headers: {
+
           'Content-Type': 'text/plain;charset=utf-8'
+
         }
+
       });
 
       const result = await response.json();
 
       if (result.success) {
+
         document.getElementById('codeSection').style.display = 'block';
+
         loginFeedback.textContent = 'Verification code sent. Please check your email.';
+
       } else {
+
         loginFeedback.textContent = result.message || 'Unable to send code.';
+
       }
+
     } catch (error) {
+
       loginFeedback.textContent = 'Error sending code. Please try again.';
+
     }
+
   }
 
   async function verifyCode() {
+
     const email = document.getElementById('userEmail').value.trim();
+
     const code = document.getElementById('verificationCode').value.trim();
+
     const loginFeedback = document.getElementById('loginFeedback');
 
     if (!email || !code) {
+
       loginFeedback.textContent = 'Please enter your email and verification code.';
+
       return;
+
     }
 
     try {
+
       const verifyResponse = await fetch(WEB_APP_URL, {
+
         method: 'POST',
+
         body: JSON.stringify({
+
           action: 'verifyCode',
+
           email: email,
+
           code: code
+
         }),
+
         headers: {
+
           'Content-Type': 'text/plain;charset=utf-8'
+
         }
+
       });
 
       const verifyResult = await verifyResponse.json();
 
       if (!verifyResult.success) {
+
         loginFeedback.textContent = verifyResult.message || 'Invalid code.';
+
         return;
+
       }
 
       verifiedEmail = email;
+
       localStorage.setItem('verifiedEmail', email);
+
       loginFeedback.textContent = 'Code verified. Looking for your saved application...';
 
       const formResponse = await fetch(WEB_APP_URL, {
+
         method: 'POST',
+
         body: JSON.stringify({
+
           action: 'getFormByEmail',
+
           email: email
+
         }),
+
         headers: {
+
           'Content-Type': 'text/plain;charset=utf-8'
+
         }
+
       });
 
       const formResult = await formResponse.json();
-      console.log('getFormByEmail result:', formResult);
 
       if (formResult.success && formResult.found && formResult.data) {
+
         populateForm(formResult.data);
 
         if (form.elements['email']) {
+
           form.elements['email'].value = email;
+
         }
 
+        markModuleComplete('application');
+
         loginFeedback.textContent = 'Saved application loaded.';
+
       } else if (formResult.success && !formResult.found) {
+
         loginFeedback.textContent =
+
           (formResult.message || 'No saved application found.') +
+
           ' You can complete a new application.';
 
         if (form.elements['email']) {
+
           form.elements['email'].value = email;
+
         }
+
       } else {
+
         loginFeedback.textContent =
+
           formResult.message || 'Could not load saved application.';
+
       }
 
-      showForm();
+      showDashboard();
+
     } catch (error) {
+
       console.error(error);
+
       loginFeedback.textContent = 'Error verifying code or loading application.';
+
     }
+
   }
 
   function getCheckedValues(name) {
+
     return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(cb => cb.value);
+
   }
 
   function currentTimestamp() {
+
     return new Date().toISOString();
+
   }
 
   function collectFormData() {
+
     const formData = new FormData(form);
 
     return {
+
       action: 'saveForm',
+
       churchAttended: formData.get('churchAttended'),
+
       firstName: formData.get('firstName'),
+
       lastName: formData.get('lastName'),
+
       address: formData.get('address'),
+
       phone: formData.get('phone'),
+
       email: verifiedEmail || formData.get('email'),
+
       dateOfBirth: formData.get('dateOfBirth'),
+
       gender: formData.get('gender'),
+
       volunteerAreas: getCheckedValues('volunteerAreas'),
+
       emergencyName: formData.get('emergencyName'),
+
       emergencyRelationship: formData.get('emergencyRelationship'),
+
       emergencyPhone: formData.get('emergencyPhone'),
+
       emergencyWilling: formData.get('emergencyWilling'),
+
       servedAnotherChurch: formData.get('servedAnotherChurch'),
+
       lastChurchServed: formData.get('lastChurchServed'),
+
       committedToJesus: formData.get('committedToJesus'),
+
       yearSaved: formData.get('yearSaved'),
+
       workHobbiesSkills: formData.get('workHobbiesSkills'),
+
       claimPhysicalAbuse: formData.get('claimPhysicalAbuse'),
+
       claimSexualAbuse: formData.get('claimSexualAbuse'),
+
       claimSexualHarassment: formData.get('claimSexualHarassment'),
+
       claimDomesticViolence: formData.get('claimDomesticViolence'),
+
       employmentTerminated: formData.get('employmentTerminated'),
+
       medicalInformation: formData.get('medicalInformation'),
+
       blueCard: formData.get('blueCard'),
+
       blueCardNumber: formData.get('blueCardNumber'),
+
       blueCardExpiry: formData.get('blueCardExpiry'),
+
       childSafeTraining: formData.get('childSafeTraining'),
+
       childSafeCourseName: formData.get('childSafeCourseName'),
+
       childSafeDateAchieved: formData.get('childSafeDateAchieved'),
+
       foodSafetyTraining: formData.get('foodSafetyTraining'),
+
       foodSafetyCourseName: formData.get('foodSafetyCourseName'),
+
       foodSafetyDateAchieved: formData.get('foodSafetyDateAchieved'),
+
       firstAidTraining: formData.get('firstAidTraining'),
+
       firstAidCourseName: formData.get('firstAidCourseName'),
+
       firstAidDateAchieved: formData.get('firstAidDateAchieved'),
+
       fireTraining: formData.get('fireTraining'),
+
       fireCourseName: formData.get('fireCourseName'),
+
       fireDateAchieved: formData.get('fireDateAchieved'),
+
       otherTraining: formData.get('otherTraining'),
+
       otherCourseName: formData.get('otherCourseName'),
+
       otherDateAchieved: formData.get('otherDateAchieved'),
+
       agreementAccepted: formData.get('agreementAccepted') === 'on',
+
       signatureName: formData.get('signatureName'),
+
       signatureTimestamp: currentTimestamp()
+
     };
+
   }
 
   function populateForm(data) {
+
     for (const [key, value] of Object.entries(data)) {
+
       const field = form.elements[key];
 
       if (!field) continue;
 
       if (field instanceof RadioNodeList) {
+
         if (field.length && field[0] && field[0].type === 'checkbox') {
+
           const values = Array.isArray(value) ? value : [];
+
           for (const checkbox of field) {
+
             checkbox.checked = values.includes(checkbox.value);
+
           }
+
         } else {
+
           for (const radio of field) {
+
             radio.checked = radio.value === String(value);
+
           }
+
         }
+
       } else if (field.type === 'checkbox') {
+
         field.checked = !!value;
+
       } else {
+
         field.value = value || '';
+
       }
+
     }
+
   }
 
   function escapeHtml(value) {
+
     return String(value || '')
+
       .replaceAll('&', '&amp;')
+
       .replaceAll('<', '&lt;')
+
       .replaceAll('>', '&gt;')
+
       .replaceAll('"', '&quot;')
+
       .replaceAll("'", '&#039;');
+
   }
 
   function buildPrintSummary(data) {
+
     const volunteerAreasText = Array.isArray(data.volunteerAreas)
+
       ? data.volunteerAreas.join(', ')
+
       : '';
 
     summaryContent.innerHTML = `
+
       <p><strong>Church Attended:</strong> ${escapeHtml(data.churchAttended)}</p>
+
       <p><strong>First Name:</strong> ${escapeHtml(data.firstName)}</p>
+
       <p><strong>Last Name:</strong> ${escapeHtml(data.lastName)}</p>
+
       <p><strong>Address:</strong> ${escapeHtml(data.address)}</p>
+
       <p><strong>Phone No.:</strong> ${escapeHtml(data.phone)}</p>
+
       <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+
       <p><strong>Date of Birth:</strong> ${escapeHtml(data.dateOfBirth)}</p>
+
       <p><strong>Gender:</strong> ${escapeHtml(data.gender)}</p>
+
       <p><strong>Volunteer Areas:</strong> ${escapeHtml(volunteerAreasText)}</p>
+
       <p><strong>Emergency Contact Name:</strong> ${escapeHtml(data.emergencyName)}</p>
+
       <p><strong>Emergency Contact Relationship:</strong> ${escapeHtml(data.emergencyRelationship)}</p>
+
       <p><strong>Emergency Contact Phone:</strong> ${escapeHtml(data.emergencyPhone)}</p>
+
       <p><strong>Emergency Contact Willing to Help:</strong> ${escapeHtml(data.emergencyWilling)}</p>
+
       <p><strong>Electronic Signature:</strong> ${escapeHtml(data.signatureName)}</p>
+
       <p><strong>Signature Timestamp:</strong> ${escapeHtml(data.signatureTimestamp)}</p>
+
     `;
+
   }
 
   function showForm() {
-    loginSection.classList.remove('active');
-    summarySection.classList.remove('active');
-    formSection.classList.add('active');
+
+    showOnly(formSection);
+
   }
 
   function showSummary() {
-    loginSection.classList.remove('active');
-    formSection.classList.remove('active');
-    summarySection.classList.add('active');
+
+    showOnly(summarySection);
+
   }
 
   function editApplication() {
-    summarySection.classList.remove('active');
-    formSection.classList.add('active');
+
+    showOnly(formSection);
+
   }
 
   form.addEventListener('submit', async function (event) {
+
     event.preventDefault();
 
     if (!verifiedEmail) {
+
       feedback.textContent = 'Please verify your email before submitting the form.';
+
       return;
+
     }
 
     const data = collectFormData();
 
     if (data.volunteerAreas.length === 0) {
+
       feedback.textContent = 'Please select at least one volunteer area.';
+
       return;
+
     }
 
     try {
+
       const response = await fetch(WEB_APP_URL, {
+
         method: 'POST',
+
         body: JSON.stringify(data),
+
         headers: {
+
           'Content-Type': 'text/plain;charset=utf-8'
+
         }
+
       });
 
       const result = await response.json();
 
       if (result.success) {
+
+        markModuleComplete('application');
+
         buildPrintSummary(data);
+
         showSummary();
+
         feedback.textContent = '';
+
       } else {
+
         feedback.textContent = result.message || 'There was a problem saving the form.';
+
       }
+
     } catch (error) {
+
       feedback.textContent = 'There was a problem submitting the form.';
+
     }
+
   });
+
 </script>
 
 </body>
+
 </html>
