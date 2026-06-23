@@ -1207,6 +1207,15 @@
     showDashboard();
   }
 });
+window.addEventListener('load', function () {
+  const savedEmail = localStorage.getItem('verifiedEmail');
+  const params = new URLSearchParams(window.location.search);
+
+  if (savedEmail && params.get('dashboard') === 'true') {
+    verifiedEmail = savedEmail;
+    showDashboard();
+  }
+});
 
 </script>
 
