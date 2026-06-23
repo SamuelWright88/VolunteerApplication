@@ -1198,6 +1198,15 @@
     }
 
   });
+  
+  window.addEventListener('load', function () {
+  const verifiedEmail = localStorage.getItem('verifiedEmail');
+  const params = new URLSearchParams(window.location.search);
+
+  if (verifiedEmail && params.get('dashboard') === 'true') {
+    showDashboard();
+  }
+});
 
 </script>
 
